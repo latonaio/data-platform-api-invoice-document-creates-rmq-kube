@@ -1,5 +1,5 @@
 # format_definition
-format_definition はデータ連携基盤におけるオーダーAPIの仕様を書き記したものです。
+format_definition はデータ連携基盤における請求APIの仕様を書き記したものです。
 
 ## APIサービス名:【Invoice Document > DPFM_API_INVOICE_DOCUMENT_SRV】
 ### API名:【Invoice Document Header > A_Header】

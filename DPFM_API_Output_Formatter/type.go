@@ -16,6 +16,8 @@ type Header struct {
 	LastChangeDate             string  `json:"LastChangeDate"`
 	BillToParty                int     `json:"BillToParty"`
 	BillFromParty              int     `json:"BillFromParty"`
+	BillToCountry              string  `json:"BillToCountry"`
+	BillFromCountry            string  `json:"BillFromCountry"`
 	InvoiceDocumentDate        string  `json:"InvoiceDocumentDate"`
 	InvoiceDocumentTime        string  `json:"InvoiceDocumentTime"`
 	InvoicePeriodStartDate     string  `json:"InvoicePeriodStartDate"`
@@ -23,7 +25,8 @@ type Header struct {
 	AccountingPostingDate      string  `json:"AccountingPostingDate"`
 	InvoiceDocumentIsCancelled bool    `json:"InvoiceDocumentIsCancelled"`
 	CancelledInvoiceDocument   int     `json:"CancelledInvoiceDocument"`
-	IsExportDelivery           bool    `json:"IsExportDelivery"`
+	IsExportImportDelivery     bool    `json:"IsExportImportDelivery"`
+	HeaderBillingIsConfirmed   bool    `json:"HeaderBillingIsConfirmed"`
 	HeaderBillingConfStatus    string  `json:"HeaderBillingConfStatus"`
 	TotalNetAmount             float32 `json:"TotalNetAmount"`
 	TotalTaxAmount             float32 `json:"TotalTaxAmount"`
@@ -34,12 +37,13 @@ type Header struct {
 	DueCalculationBaseDate     string  `json:"DueCalculationBaseDate"`
 	NetPaymentDays             int     `json:"NetPaymentDays"`
 	PaymentMethod              string  `json:"PaymentMethod"`
-	PaymentBlockingReason      bool    `json:"PaymentBlockingReason"`
+	HeaderPaymentBlockStatus   bool    `json:"HeaderPaymentBlockStatus"`
 	ExternalReferenceDocument  string  `json:"ExternalReferenceDocument"`
 	DocumentHeaderText         string  `json:"DocumentHeaderText"`
 }
 
 type HeaderPartner struct {
+	InvoiceDocument         int    `json:"InvoiceDocument"`
 	PartnerFunction         string `json:"PartnerFunction"`
 	BusinessPartner         int    `json:"BusinessPartner"`
 	BusinessPartnerFullName string `json:"BusinessPartnerFullName"`
@@ -53,6 +57,9 @@ type HeaderPartner struct {
 }
 
 type HeaderPartnerContact struct {
+	InvoiceDocument   int    `json:"InvoiceDocument"`
+	PartnerFunction   string `json:"PartnerFunction"`
+	BusinessPartner   int    `json:"BusinessPartner"`
 	ContactID         int    `json:"ContactID"`
 	ContactPersonName string `json:"ContactPersonName"`
 	EmailAddress      string `json:"EmailAddress"`
@@ -66,6 +73,7 @@ type HeaderPartnerContact struct {
 }
 
 type HeaderPDF struct {
+	InvoiceDocument          int    `json:"InvoiceDocument"`
 	DocType                  string `json:"DocType"`
 	DocVersionID             int    `json:"DocVersionID"`
 	DocID                    string `json:"DocID"`
@@ -74,26 +82,28 @@ type HeaderPDF struct {
 }
 
 type Address struct {
-	AddressID   int    `json:"AddressID"`
-	PostalCode  string `json:"PostalCode"`
-	LocalRegion string `json:"LocalRegion"`
-	Country     string `json:"Country"`
-	District    string `json:"District"`
-	StreetName  string `json:"StreetName"`
-	CityName    string `json:"CityName"`
-	Building    string `json:"Building"`
-	Floor       int    `json:"Floor"`
-	Room        int    `json:"Room"`
+	InvoiceDocument int    `json:"InvoiceDocument"`
+	AddressID       int    `json:"AddressID"`
+	PostalCode      string `json:"PostalCode"`
+	LocalRegion     string `json:"LocalRegion"`
+	Country         string `json:"Country"`
+	District        string `json:"District"`
+	StreetName      string `json:"StreetName"`
+	CityName        string `json:"CityName"`
+	Building        string `json:"Building"`
+	Floor           int    `json:"Floor"`
+	Room            int    `json:"Room"`
 }
 
 type Item struct {
+	InvoiceDocument                int     `json:"InvoiceDocument"`
 	InvoiceDocumentItem            int     `json:"InvoiceDocumentItem"`
 	DocumentItemCategory           string  `json:"DocumentItemCategory"`
 	InvoiceDocumentItemText        string  `json:"InvoiceDocumentItemText"`
 	CreationDate                   string  `json:"CreationDate"`
 	CreationTime                   string  `json:"CreationTime"`
+	ItemBillingIsConfirmed         bool    `json:"ItemBillingIsConfirmed"`
 	ItemBillingConfStatus          string  `json:"ItemBillingConfStatus"`
-	BusinessArea                   string  `json:"BusinessArea"`
 	Buyer                          int     `json:"Buyer"`
 	Seller                         int     `json:"Seller"`
 	DeliverToParty                 int     `json:"DeliverToParty"`
@@ -126,8 +136,6 @@ type Item struct {
 	ItemGrossWeight                float32 `json:"ItemGrossWeight"`
 	ItemNetWeight                  float32 `json:"ItemNetWeight"`
 	ItemWeightUnit                 string  `json:"ItemWeightUnit"`
-	ItemVolume                     float32 `json:"ItemVolume"`
-	ItemVolumeUnit                 string  `json:"ItemVolumeUnit"`
 	NetAmount                      float32 `json:"NetAmount"`
 	TaxAmount                      float32 `json:"TaxAmount"`
 	GrossAmount                    float32 `json:"GrossAmount"`
@@ -135,7 +143,6 @@ type Item struct {
 	TransactionCurrency            string  `json:"TransactionCurrency"`
 	PricingDate                    string  `json:"PricingDate"`
 	ProductTaxClassification       string  `json:"ProductTaxClassification"`
-	ProfitCenter                   string  `json:"ProfitCenter"`
 	Project                        string  `json:"Project"`
 	OrderID                        int     `json:"OrderID"`
 	OrderItem                      int     `json:"OrderItem"`
@@ -160,12 +167,15 @@ type Item struct {
 }
 
 type ItemPartner struct {
-	PartnerFunction string `json:"PartnerFunction"`
-	BusinessPartner int    `json:"BusinessPartner"`
+	InvoiceDocument     int    `json:"InvoiceDocument"`
+	InvoiceDocumentItem int    `json:"InvoiceDocumentItem"`
+	PartnerFunction     string `json:"PartnerFunction"`
+	BusinessPartner     int    `json:"BusinessPartner"`
 }
 
 type ItemPricingElement struct {
-	PricingProcedureStep       int     `json:"PricingProcedureStep"`
+	InvoiceDocument            int     `json:"InvoiceDocument"`
+	InvoiceDocumentItem        int     `json:"InvoiceDocumentItem"`
 	PricingProcedureCounter    int     `json:"PricingProcedureCounter"`
 	ConditionType              string  `json:"ConditionType"`
 	PricingDate                string  `json:"PricingDate"`
