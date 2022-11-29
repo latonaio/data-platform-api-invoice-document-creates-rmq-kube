@@ -61,23 +61,23 @@ func (sdc *SDC) ConvertToHeaderPartner(num int) *requests.HeaderPartner {
 	}
 }
 
-func (sdc *SDC) ConvertToHeaderPartnerContact(hpNum, hpcNum int) *requests.HeaderPartnerContact {
-	dataHeader := sdc.InvoiceDocument
-	dataHeaderPartner := sdc.InvoiceDocument.HeaderPartner[hpNum]
-	data := dataHeaderPartner.HeaderPartnerContact[hpcNum]
-	return &requests.HeaderPartnerContact{
-		InvoiceDocument:   dataHeader.InvoiceDocument,
-		PartnerFunction:   dataHeaderPartner.PartnerFunction,
-		BusinessPartner:   dataHeaderPartner.BusinessPartner,
-		ContactID:         data.ContactID,
-		ContactPersonName: data.ContactPersonName,
-		EmailAddress:      data.EmailAddress,
-		PhoneNumber:       data.PhoneNumber,
-		MobilePhoneNumber: data.MobilePhoneNumber,
-		FaxNumber:         data.FaxNumber,
-		ContactTag1:       data.ContactTag1,
-		ContactTag2:       data.ContactTag2,
-		ContactTag3:       data.ContactTag3,
-		ContactTag4:       data.ContactTag4,
-	}
-}
+// func (sdc *SDC) ConvertToHeaderPartnerContact(hpNum, hpcNum int) *requests.HeaderPartnerContact {
+// 	dataHeader := sdc.InvoiceDocument
+// 	dataHeaderPartner := sdc.InvoiceDocument.HeaderPartner[hpNum]
+// 	data := dataHeaderPartner.HeaderPartnerContact[hpcNum]
+// 	return &requests.HeaderPartnerContact{
+// 		InvoiceDocument:   dataHeader.InvoiceDocument,
+// 		PartnerFunction:   dataHeaderPartner.PartnerFunction,
+// 		BusinessPartner:   dataHeaderPartner.BusinessPartner,
+// 		ContactID:         data.ContactID,
+// 		ContactPersonName: data.ContactPersonName,
+// 		EmailAddress:      data.EmailAddress,
+// 		PhoneNumber:       data.PhoneNumber,
+// 		MobilePhoneNumber: data.MobilePhoneNumber,
+// 		FaxNumber:         data.FaxNumber,
+// 		ContactTag1:       data.ContactTag1,
+// 		ContactTag2:       data.ContactTag2,
+// 		ContactTag3:       data.ContactTag3,
+// 		ContactTag4:       data.ContactTag4,
+// 	}
+// }

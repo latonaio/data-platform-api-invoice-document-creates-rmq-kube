@@ -1,0 +1,100 @@
+{
+  "connection_key": "request",
+  "result": true,
+  "redis_key": "abcdefg",
+  "filepath": "/var/lib/aion/Data/rededge_sdc/abcdef.json",
+  "api_status_code": 200,
+  "runtime_session_id": "boi9ar543dg91ipdnspi099u231280ab0v8af0ew",
+  "business_partner": 201,
+  "service_label": "INVOICE_DOCUMENT",
+  "message": {
+    "Header": [
+      {
+        "InvoiceDocument": 90000004,
+        "CreationDate": "",
+        "LastChangeDate": "",
+        "BillToParty": null,
+        "BillFromParty": null,
+        "BillToCountry": "JP",
+        "BillFromCountry": "US",
+        "InvoiceDocumentDate": "",
+        "InvoiceDocumentTime": "",
+        "InvoicePeriodStartDate": "",
+        "InvoicePeriodEndDate": "",
+        "AccountingPostingDate": "",
+        "InvoiceDocumentIsCancelled": null,
+        "CancelledInvoiceDocument": null,
+        "IsExportImportDelivery": null,
+        "HeaderBillingIsConfirmed": null,
+        "HeaderBillingConfStatus": "",
+        "TotalNetAmount": 10000,
+        "TotalTaxAmount": 1000,
+        "TotalGrossAmount": 11000,
+        "TransactionCurrency": "JPY",
+        "Incoterms": "CIF",
+        "PaymentTerms": "0001",
+        "DueCalculationBaseDate": null,
+        "NetPaymentDays": null,
+        "PaymentMethod": "T",
+        "HeaderPaymentBlockStatus": null,
+        "ExternalReferenceDocument": "",
+        "DocumentHeaderText": ""
+      }
+    ],
+    "HeaderPartner": [
+      {
+        "InvoiceDocument": 90000004,
+        "PartnerFunction": "BUYER",
+        "BusinessPartner": 101,
+        "BusinessPartnerFullName": "株式会社ローソン本社",
+        "BusinessPartnerName": "ローソン本社",
+        "Organization": null,
+        "Country": "",
+        "Language": "JA",
+        "Currency": "JPY",
+        "ExternalDocumentID": null,
+        "AddressID": 100000
+      },
+      {
+        "InvoiceDocument": 90000004,
+        "PartnerFunction": "DELIVERTO",
+        "BusinessPartner": 102,
+        "BusinessPartnerFullName": "株式会社ローソン虎ノ門店",
+        "BusinessPartnerName": "ローソン虎ノ門店",
+        "Organization": null,
+        "Country": "",
+        "Language": "JA",
+        "Currency": "JPY",
+        "ExternalDocumentID": null,
+        "AddressID": 200000
+      },
+      {
+        "InvoiceDocument": 90000004,
+        "PartnerFunction": "SELLER",
+        "BusinessPartner": 201,
+        "BusinessPartnerFullName": "山崎製パン販売株式会社",
+        "BusinessPartnerName": "山崎パン販売",
+        "Organization": null,
+        "Country": "",
+        "Language": "JA",
+        "Currency": "JPY",
+        "ExternalDocumentID": null,
+        "AddressID": 300000
+      }
+    ],
+    "HeaderPartnerContact": null
+  },
+  "api_schema": "DPFMInvoiceDocumentCreates",
+  "accepter": [
+    "All"
+  ],
+  "deleted": false,
+  "sql_update_result": true,
+  "sql_update_error": "",
+  "subfunc_result": true,
+  "subfunc_error": "",
+  "exconf_result": null,
+  "exconf_error": "",
+  "api_processing_result": true,
+  "api_processing_error": ""
+}

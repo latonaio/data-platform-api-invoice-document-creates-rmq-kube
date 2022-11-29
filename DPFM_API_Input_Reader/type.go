@@ -49,24 +49,24 @@ type InvoiceDocument struct {
 	ExternalReferenceDocument  *string         `json:"ExternalReferenceDocument"`
 	DocumentHeaderText         *string         `json:"DocumentHeaderText"`
 	HeaderPartner              []HeaderPartner `json:"HeaderPartner"`
-	Address                    []Address       `json:"Address"`
+	Address                    Address         `json:"Address"`
 	HeaderPDF                  []HeaderPDF     `json:"HeaderPDF"`
 	Item                       []Item          `json:"Item"`
 }
 
 type HeaderPartner struct {
-	InvoiceDocument         *int                   `json:"InvoiceDocument"`
-	PartnerFunction         *string                `json:"PartnerFunction"`
-	BusinessPartner         *int                   `json:"BusinessPartner"`
-	BusinessPartnerFullName *string                `json:"BusinessPartnerFullName"`
-	BusinessPartnerName     *string                `json:"BusinessPartnerName"`
-	Organization            *string                `json:"Organization"`
-	Country                 *string                `json:"Country"`
-	Language                *string                `json:"Language"`
-	Currency                *string                `json:"Currency"`
-	ExternalDocumentID      *string                `json:"ExternalDocumentID"`
-	AddressID               *int                   `json:"AddressID"`
-	HeaderPartnerContact    []HeaderPartnerContact `json:"HeaderPartnerContact"`
+	InvoiceDocument         *int                 `json:"InvoiceDocument"`
+	PartnerFunction         *string              `json:"PartnerFunction"`
+	BusinessPartner         *int                 `json:"BusinessPartner"`
+	BusinessPartnerFullName *string              `json:"BusinessPartnerFullName"`
+	BusinessPartnerName     *string              `json:"BusinessPartnerName"`
+	Organization            *string              `json:"Organization"`
+	Country                 *string              `json:"Country"`
+	Language                *string              `json:"Language"`
+	Currency                *string              `json:"Currency"`
+	ExternalDocumentID      *string              `json:"ExternalDocumentID"`
+	AddressID               *int                 `json:"AddressID"`
+	HeaderPartnerContact    HeaderPartnerContact `json:"HeaderPartnerContact"`
 }
 
 type HeaderPartnerContact struct {

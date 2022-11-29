@@ -40,6 +40,7 @@ func (c *ExistenceConf) Conf(data *dpfm_api_input_reader.SDC, ssdc *sub_func_com
 	existenceMap := make([]bool, 0, 5)
 	wg := sync.WaitGroup{}
 	mtx := &sync.Mutex{}
+	return true, nil
 	wg.Add(3)
 
 	go func() {
@@ -69,7 +70,7 @@ func (c *ExistenceConf) Conf(data *dpfm_api_input_reader.SDC, ssdc *sub_func_com
 
 	go func() {
 		defer wg.Done()
-		// res, err = c.plantExistenceConf(data.DeliveryDocument.HeaderPartner, data, &existenceMap, mtx, l)
+		// res, err = c.plantExistenceConf(data.InvoiceDocument.HeaderPartner, data, &existenceMap, mtx, l)
 		// if errs != nil {
 		// 	mtx.Lock()
 		// 	errs = append(errs, err)

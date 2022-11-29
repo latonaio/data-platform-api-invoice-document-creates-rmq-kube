@@ -156,22 +156,21 @@ func (c *DPFMAPICaller) headerCreate(
 		}
 	}
 
-	// // data_platform_invoice_document_header_partner_dataの更新
-	// for i := range ssdc.Message.HeaderPartner {
-	// 	headerPartnerData := ssdc.Message.HeaderPartner[i]
-	// 	res, err = c.rmq.SessionKeepRequest(ctx, c.conf.RMQ.QueueToSQL()[0], map[string]interface{}{"message": headerPartnerData, "function": "OrdersHeaderPartner", "runtime_session_id": sessionID})
-	// 	if err != nil {
-	// 		err = xerrors.Errorf("rmq error: %w", err)
-	// 		return
-	// 	}
-	// 	res.Success()
-	// }
-	// if !checkResult(res) {
-	// 	// err = xerrors.New("Header Partner Data cannot insert")
-	// 	ssdc.SQLUpdateResult = getBoolPtr(false)
-	// 	ssdc.SQLUpdateError = "Header Partner Data cannot insert"
-	// 	return
-	// }
+	// data_platform_invoice_document_header_partner_dataの更新
+	for _, headerPartnerData := range ssdc.Message.HeaderPartner {
+		res, err := c.rmq.SessionKeepRequest(ctx, c.conf.RMQ.QueueToSQL()[0], map[string]interface{}{"message": headerPartnerData, "function": "InvoiceDocumentHeaderPartner", "runtime_session_id": sessionID})
+		if err != nil {
+			err = xerrors.Errorf("rmq error: %w", err)
+			return
+		}
+		res.Success()
+		if !checkResult(res) {
+			// err = xerrors.New("Header Data cannot insert")
+			ssdc.SQLUpdateResult = getBoolPtr(false)
+			ssdc.SQLUpdateError = "Header Partner Data cannot insert"
+			return
+		}
+	}
 
 	ssdc.SQLUpdateResult = getBoolPtr(true)
 	return
