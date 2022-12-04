@@ -3,8 +3,8 @@ package existence_conf
 import (
 	"context"
 	dpfm_api_input_reader "data-platform-api-invoice-document-creates-rmq-kube/DPFM_API_Input_Reader"
+	dpfm_api_output_formatter "data-platform-api-invoice-document-creates-rmq-kube/DPFM_API_Output_Formatter"
 	"data-platform-api-invoice-document-creates-rmq-kube/config"
-	"data-platform-api-invoice-document-creates-rmq-kube/sub_func_complementer"
 	"encoding/json"
 	"fmt"
 	"strings"
@@ -33,7 +33,7 @@ func NewExistenceConf(ctx context.Context, c *config.Conf, rmq *rabbitmq.Rabbitm
 }
 
 // Confirm returns existenceMap, allExist, err
-func (c *ExistenceConf) Conf(data *dpfm_api_input_reader.SDC, ssdc *sub_func_complementer.SDC, l *logger.Logger) (allExist bool, errs []error) {
+func (c *ExistenceConf) Conf(data *dpfm_api_input_reader.SDC, output *dpfm_api_output_formatter.SDC, l *logger.Logger) (allExist bool, errs []error) {
 	var res string
 	var resMsg string
 	var err error
@@ -86,13 +86,13 @@ func (c *ExistenceConf) Conf(data *dpfm_api_input_reader.SDC, ssdc *sub_func_com
 		return false, errs
 	}
 
-	ssdc.ExconfResult = getBoolPtr(true)
+	output.ExconfResult = getBoolPtr(true)
 	for _, v := range existenceMap {
 		if v {
 			continue
 		}
-		ssdc.ExconfResult = getBoolPtr(false)
-		ssdc.ExconfError = resMsg
+		output.ExconfResult = getBoolPtr(false)
+		output.ExconfError = resMsg
 		return false, nil
 	}
 	return true, nil
@@ -142,61 +142,6 @@ func (c *ExistenceConf) bpExistenceConf(bpID int, data *dpfm_api_input_reader.SD
 
 	return resMsg, nil
 }
-
-// func (c *ExistenceConf) plantExistenceConf(headerPartners []dpfm_api_input_reader.HeaderPartner, data *dpfm_api_input_reader.SDC, existenceMap *[]bool, mtx *sync.Mutex, log *logger.Logger) (string, error) {
-// 	var resMsg string
-// 	key := "PlantGeneral"
-// 	exist := make([]bool, 0, len(headerPartners))
-// 	defer func() {
-// 		if len(exist) == 0 {
-// 			mtx.Lock()
-// 			*existenceMap = append(*existenceMap, false)
-// 			mtx.Unlock()
-// 			return
-// 		}
-// 		mtx.Lock()
-// 		*existenceMap = append(*existenceMap, exist...)
-// 		mtx.Unlock()
-// 	}()
-
-// 	b, _ := json.Marshal(data)
-// 	req := PlantReq{}
-// 	err := json.Unmarshal(b, &req)
-// 	if err != nil {
-// 		return resMsg, xerrors.Errorf("Unmarshal error: %w", err)
-// 	}
-// 	wg := sync.WaitGroup{}
-// 	for _, v := range headerPartners {
-// 		wg.Add(1)
-// 		go func(req PlantReq, hp dpfm_api_input_reader.HeaderPartner) {
-// 			defer wg.Done()
-// 			req.Plant.BusinessPartner = *hp.BusinessPartner
-
-// 			for _, p := range hp.HeaderPartnerPlant {
-// 				plant := p.Plant
-// 				if plant == "" {
-// 					exist = append(exist, true)
-// 					continue
-// 				}
-// 				req.Plant.Plant = plant
-// 				res, err := c.rmq.SessionKeepRequest(nil, c.queueToMapper[key], req)
-// 				if err != nil {
-// 					log.Error(xerrors.Errorf("response error: %w", err))
-// 				}
-// 				res.Success()
-// 				exist = append(exist, confKeyExistence(res.Data()))
-// 				log.Info(res.Data())
-// 				if !confKeyExistence(res.Data()) {
-// 					resMsg = fmt.Sprintf("BusinessPartner:%d, Plant:%s を含むデータが存在しません", int(res.Data()["BusinessPartner"].(float64)), res.Data()["Plant"].(string))
-// 				}
-// 			}
-
-// 		}(req, v)
-// 	}
-// 	wg.Wait()
-
-// 	return resMsg, nil
-// }
 
 func getBoolPtr(b bool) *bool {
 	return &b
