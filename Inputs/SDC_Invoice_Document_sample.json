@@ -34,6 +34,7 @@
     "PaymentBlockingReason":null,
     "ExternalReferenceDocument":"",
     "DocumentHeaderText":"",
+    "HeaderPaymentRequisitionIsCreated":"",
     "HeaderPartner":[
       {
         "PartnerFunction":"",
