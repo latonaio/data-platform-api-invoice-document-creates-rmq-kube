@@ -4,21 +4,40 @@ type EC_MC struct {
 }
 
 type SDC struct {
-	ConnectionKey     string          `json:"connection_key"`
-	Result            bool            `json:"result"`
-	RedisKey          string          `json:"redis_key"`
-	Filepath          string          `json:"filepath"`
-	APIStatusCode     int             `json:"api_status_code"`
-	RuntimeSessionID  string          `json:"runtime_session_id"`
-	BusinessPartnerID *int            `json:"business_partner"`
-	ServiceLabel      string          `json:"service_label"`
-	InvoiceDocument   InvoiceDocument `json:"InvoiceDocument"`
-	APISchema         string          `json:"api_schema"`
-	Accepter          []string        `json:"accepter"`
-	InvoiceDocumentID *int            `json:"invoice_document_id"`
-	Deleted           bool            `json:"deleted"`
+	ConnectionKey                  string                         `json:"connection_key"`
+	Result                         bool                           `json:"result"`
+	RedisKey                       string                         `json:"redis_key"`
+	Filepath                       string                         `json:"filepath"`
+	APIStatusCode                  int                            `json:"api_status_code"`
+	RuntimeSessionID               string                         `json:"runtime_session_id"`
+	BusinessPartnerID              *int                           `json:"business_partner"`
+	ServiceLabel                   string                         `json:"service_label"`
+	InvoiceDocumentInputParameters InvoiceDocumentInputParameters `json:"InvoiceDocumentInputParameters"`
+	Header                         Header                         `json:"InvoiceDocument"`
+	APISchema                      string                         `json:"api_schema"`
+	Accepter                       []string                       `json:"accepter"`
+	InvoiceDocumentID              *int                           `json:"invoice_document_id"`
+	Deleted                        bool                           `json:"deleted"`
 }
-type InvoiceDocument struct {
+
+type InvoiceDocumentInputParameters struct {
+	BillFromParty             *[]*int    `json:"BillFromParty"`
+	BillFromPartyFrom         *int       `json:"BillFromPartyFrom"`
+	BillFromPartyTo           *int       `json:"BillFromPartyTo"`
+	BillToParty               *[]*int    `json:"BillToParty"`
+	BillToPartyFrom           *int       `json:"BillToPartyFrom"`
+	BillToPartyTo             *int       `json:"BillToPartyTo"`
+	ConfirmedDeliveryDate     *[]*string `json:"ConfirmedDeliveryDate"`
+	ConfirmedDeliveryDateFrom *string    `json:"ConfirmedDeliveryDateFrom"`
+	ConfirmedDeliveryDateTo   *string    `json:"ConfirmedDeliveryDateTo"`
+	ActualGoodsIssueDate      *[]*string `json:"ActualGoodsIssueDate"`
+	ActualGoodsIssueDateFrom  *string    `json:"ActualGoodsIssueDateFrom"`
+	ActualGoodsIssueDateTo    *string    `json:"ActualGoodsIssueDateTo"`
+	ReferenceDocument         *int       `json:"ReferenceDocument"`
+	ReferenceDocumentItem     *int       `json:"ReferenceDocumentItem"`
+}
+
+type Header struct {
 	InvoiceDocument                   *int            `json:"InvoiceDocument"`
 	CreationDate                      *string         `json:"CreationDate"`
 	LastChangeDate                    *string         `json:"LastChangeDate"`
@@ -50,9 +69,22 @@ type InvoiceDocument struct {
 	DocumentHeaderText                *string         `json:"DocumentHeaderText"`
 	HeaderPaymentRequisitionIsCreated *bool           `json:"HeaderPaymentRequisitionIsCreated"`
 	HeaderPartner                     []HeaderPartner `json:"HeaderPartner"`
-	Address                           Address         `json:"Address"`
 	HeaderPDF                         []HeaderPDF     `json:"HeaderPDF"`
 	Item                              []Item          `json:"Item"`
+}
+
+type HeaderUpdates struct {
+	TotalNetAmount                    *float32 `json:"TotalNetAmount"`
+	TotalTaxAmount                    *float32 `json:"TotalTaxAmount"`
+	TotalGrossAmount                  *float32 `json:"TotalGrossAmount"`
+	PaymentTerms                      *string  `json:"PaymentTerms"`
+	DueCalculationBaseDate            *string  `json:"DueCalculationBaseDate"`
+	NetPaymentDays                    *int     `json:"NetPaymentDays"`
+	PaymentMethod                     *string  `json:"PaymentMethod"`
+	HeaderPaymentBlockStatus          *bool    `json:"HeaderPaymentBlockStatus"`
+	ExternalReferenceDocument         *string  `json:"ExternalReferenceDocument"`
+	DocumentHeaderText                *string  `json:"DocumentHeaderText"`
+	HeaderPaymentRequisitionIsCreated *bool    `json:"HeaderPaymentRequisitionIsCreated"`
 }
 
 type HeaderPartner struct {
@@ -70,9 +102,27 @@ type HeaderPartner struct {
 	HeaderPartnerContact    HeaderPartnerContact `json:"HeaderPartnerContact"`
 }
 
+type HeaderPartnerUpdates struct {
+	ExternalDocumentID *string `json:"ExternalDocumentID"`
+}
+
 type HeaderPartnerContact struct {
 	InvoiceDocument   *int    `json:"InvoiceDocument"`
 	PartnerFunction   *string `json:"PartnerFunction"`
+	BusinessPartner   *int    `json:"BusinessPartner"`
+	ContactID         *int    `json:"ContactID"`
+	ContactPersonName *string `json:"ContactPersonName"`
+	EmailAddress      *string `json:"EmailAddress"`
+	PhoneNumber       *string `json:"PhoneNumber"`
+	MobilePhoneNumber *string `json:"MobilePhoneNumber"`
+	FaxNumber         *string `json:"FaxNumber"`
+	ContactTag1       *string `json:"ContactTag1"`
+	ContactTag2       *string `json:"ContactTag2"`
+	ContactTag3       *string `json:"ContactTag3"`
+	ContactTag4       *string `json:"ContactTag4"`
+}
+
+type HeaderPartnerContactUpdates struct {
 	BusinessPartner   *int    `json:"BusinessPartner"`
 	ContactID         *int    `json:"ContactID"`
 	ContactPersonName *string `json:"ContactPersonName"`
@@ -107,6 +157,18 @@ type Address struct {
 	Building        *string `json:"Building"`
 	Floor           *int    `json:"Floor"`
 	Room            *int    `json:"Room"`
+}
+
+type AddressUpdates struct {
+	PostalCode  *string `json:"PostalCode"`
+	LocalRegion *string `json:"LocalRegion"`
+	Country     *string `json:"Country"`
+	District    *string `json:"District"`
+	StreetName  *string `json:"StreetName"`
+	CityName    *string `json:"CityName"`
+	Building    *string `json:"Building"`
+	Floor       *int    `json:"Floor"`
+	Room        *int    `json:"Room"`
 }
 
 type Item struct {
@@ -152,6 +214,7 @@ type Item struct {
 	ItemWeightUnit                  *string              `json:"ItemWeightUnit"`
 	NetAmount                       *float32             `json:"NetAmount"`
 	TaxAmount                       *float32             `json:"TaxAmount"`
+	ItemPaymentBlockStatus          *bool                `json:"ItemPaymentBlockStatus"`
 	GrossAmount                     *float32             `json:"GrossAmount"`
 	GoodsIssueOrReceiptSlipNumber   *string              `json:"GoodsIssueOrReceiptSlipNumber"`
 	TransactionCurrency             *string              `json:"TransactionCurrency"`
@@ -181,6 +244,16 @@ type Item struct {
 	ItemPaymentRequisitionIsCreated *bool                `json:"ItemPaymentRequisitionIsCreated"`
 	ItemPartner                     []ItemPartner        `json:"ItemPartner"`
 	ItemPricingElement              []ItemPricingElement `json:"ItemPricingElement"`
+}
+
+type ItemUpdates struct {
+	ItemPaymentBlockStatus          *bool    `json:"ItemPaymentBlockStatus"`
+	GoodsIssueOrReceiptSlipNumber   *string  `json:"GoodsIssueOrReceiptSlipNumber"`
+	TransactionCurrency             *string  `json:"TransactionCurrency"`
+	TaxCode                         *string  `json:"TaxCode"`
+	TaxRate                         *float32 `json:"TaxRate"`
+	CountryOfOrigin                 *string  `json:"CountryOfOrigin"`
+	ItemPaymentRequisitionIsCreated *bool    `json:"ItemPaymentRequisitionIsCreated"`
 }
 
 type ItemPartner struct {

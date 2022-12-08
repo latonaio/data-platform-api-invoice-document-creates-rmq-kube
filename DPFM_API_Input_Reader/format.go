@@ -9,7 +9,7 @@ func (sdc *SDC) ConvertToBpExistenceConf() {
 }
 
 func (sdc *SDC) ConvertToHeader() *requests.Header {
-	data := sdc.InvoiceDocument
+	data := sdc.Header
 	return &requests.Header{
 		InvoiceDocument:                   data.InvoiceDocument,
 		CreationDate:                      data.CreationDate,
