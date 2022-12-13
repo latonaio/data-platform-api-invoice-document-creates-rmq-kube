@@ -213,6 +213,8 @@ func ConvertToItem(subfuncSDC *sub_func_complementer.SDC) []Item {
 			ItemGrossWeight:                 data.ItemGrossWeight,
 			ItemNetWeight:                   data.ItemNetWeight,
 			ItemWeightUnit:                  data.ItemWeightUnit,
+			ItemVolume:                      data.ItemVolume,
+			ItemVolumeUnit:                  data.ItemVolumeUnit,
 			NetAmount:                       data.NetAmount,
 			TaxAmount:                       data.TaxAmount,
 			GrossAmount:                     data.GrossAmount,
@@ -270,6 +272,7 @@ func ConvertToItem(subfuncSDC *sub_func_complementer.SDC) []Item {
 // 		itemPricingElement = append(itemPricingElement, ItemPricingElement{
 // 			InvoiceDocument:            data.InvoiceDocument,
 // 			InvoiceDocumentItem:        data.InvoiceDocumentItem,
+// 			PricingProcedureStep:       data.PricingProcedureStep,
 // 			PricingProcedureCounter:    data.PricingProcedureCounter,
 // 			ConditionType:              data.ConditionType,
 // 			PricingDate:                data.PricingDate,

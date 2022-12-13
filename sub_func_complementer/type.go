@@ -157,6 +157,8 @@ type Item struct {
 	ItemGrossWeight                 *float32             `json:"ItemGrossWeight"`
 	ItemNetWeight                   *float32             `json:"ItemNetWeight"`
 	ItemWeightUnit                  *string              `json:"ItemWeightUnit"`
+	ItemVolume                      *float32             `json:"ItemVolume"`
+	ItemVolumeUnit                  *string              `json:"ItemVolumeUnit"`
 	NetAmount                       *float32             `json:"NetAmount"`
 	TaxAmount                       *float32             `json:"TaxAmount"`
 	GrossAmount                     *float32             `json:"GrossAmount"`
@@ -201,6 +203,7 @@ type ItemPricingElement struct {
 	InvoiceDocument            *int     `json:"InvoiceDocument"`
 	InvoiceDocumentItem        *int     `json:"InvoiceDocumentItem"`
 	PricingProcedureCounter    *int     `json:"PricingProcedureCounter"`
+	PricingProcedureStep       *int     `json:"PricingProcedureStep"`
 	ConditionType              *string  `json:"ConditionType"`
 	PricingDate                *string  `json:"PricingDate"`
 	ConditionRateValue         *float32 `json:"ConditionRateValue"`
