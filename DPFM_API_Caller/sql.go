@@ -32,8 +32,8 @@ func (c *DPFMAPICaller) createSqlProcess(
 			headerCreates = dpfm_api_output_formatter.ConvertToHeaderCreates(subfuncSDC)
 			headerPartner = dpfm_api_output_formatter.ConvertToHeaderPartner(subfuncSDC)
 		case "Item":
-			// c.itemCreateSql(nil, mtx, input, output, subfuncSDC, errs, log)
-			// item = dpfm_api_output_formatter.ConvertToItem(subfuncSDC)
+			c.itemCreateSql(nil, mtx, input, output, subfuncSDC, errs, log)
+			item = dpfm_api_output_formatter.ConvertToItem(subfuncSDC)
 		default:
 
 		}
@@ -93,7 +93,7 @@ func (c *DPFMAPICaller) headerCreateSql(
 		ctx = context.Background()
 	}
 	sessionID := input.RuntimeSessionID
-	// data_platform_orders_header_dataの更新
+	// data_platform_invoice_document_header_dataの更新
 	for i := range subfuncSDC.Message.Header {
 		headerData := subfuncSDC.Message.Header[i]
 		res, err = c.rmq.SessionKeepRequest(ctx, c.conf.RMQ.QueueToSQL()[0], map[string]interface{}{"message": headerData, "function": "InvoiceDocumentHeader", "runtime_session_id": sessionID})
@@ -110,7 +110,7 @@ func (c *DPFMAPICaller) headerCreateSql(
 		return
 	}
 
-	// data_platform_orders_header_partner_dataの更新
+	// data_platform_invoice_document_header_partner_dataの更新
 	for i := range subfuncSDC.Message.HeaderPartner {
 		headerPartnerData := subfuncSDC.Message.HeaderPartner[i]
 		res, err = c.rmq.SessionKeepRequest(ctx, c.conf.RMQ.QueueToSQL()[0], map[string]interface{}{"message": headerPartnerData, "function": "InvoiceDocumentHeaderPartner", "runtime_session_id": sessionID})
@@ -146,7 +146,7 @@ func (c *DPFMAPICaller) itemCreateSql(
 		ctx = context.Background()
 	}
 	sessionID := input.RuntimeSessionID
-	// data_platform_orders_item_dataの更新
+	// data_platform_invoice_document_item_dataの更新
 	for _, itemData := range subfuncSDC.Message.Item {
 		res, err := c.rmq.SessionKeepRequest(ctx, c.conf.RMQ.QueueToSQL()[0], map[string]interface{}{"message": itemData, "function": "InvoiceDocumentItem", "runtime_session_id": sessionID})
 		if err != nil {

@@ -40,7 +40,6 @@ func (c *ExistenceConf) Conf(data *dpfm_api_input_reader.SDC, output *dpfm_api_o
 	existenceMap := make([]bool, 0, 5)
 	wg := sync.WaitGroup{}
 	mtx := &sync.Mutex{}
-	return true, nil
 	wg.Add(3)
 
 	go func() {

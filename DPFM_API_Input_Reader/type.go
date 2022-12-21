@@ -12,6 +12,7 @@ type SDC struct {
 	RuntimeSessionID               string                         `json:"runtime_session_id"`
 	BusinessPartnerID              *int                           `json:"business_partner"`
 	ServiceLabel                   string                         `json:"service_label"`
+	APIType                        string                         `json:"api_type"`
 	InvoiceDocumentInputParameters InvoiceDocumentInputParameters `json:"InvoiceDocumentInputParameters"`
 	Header                         Header                         `json:"InvoiceDocument"`
 	APISchema                      string                         `json:"api_schema"`
@@ -41,10 +42,12 @@ type Header struct {
 	InvoiceDocument                   *int            `json:"InvoiceDocument"`
 	CreationDate                      *string         `json:"CreationDate"`
 	LastChangeDate                    *string         `json:"LastChangeDate"`
-	BillToParty                       *int            `json:"BillToParty"`
 	BillFromParty                     *int            `json:"BillFromParty"`
-	BillToCountry                     *string         `json:"BillToCountry"`
+	BillToParty                       *int            `json:"BillToParty"`
 	BillFromCountry                   *string         `json:"BillFromCountry"`
+	BillToCountry                     *string         `json:"BillToCountry"`
+	Payer                             *int            `json:"Payer"`
+	Payee                             *int            `json:"Payee"`
 	InvoiceDocumentDate               *string         `json:"InvoiceDocumentDate"`
 	InvoiceDocumentTime               *string         `json:"InvoiceDocumentTime"`
 	InvoicePeriodStartDate            *string         `json:"InvoicePeriodStartDate"`
@@ -62,6 +65,7 @@ type Header struct {
 	Incoterms                         *string         `json:"Incoterms"`
 	PaymentTerms                      *string         `json:"PaymentTerms"`
 	DueCalculationBaseDate            *string         `json:"DueCalculationBaseDate"`
+	PaymentDueDate                    *string         `json:"PaymentDueDate"`
 	NetPaymentDays                    *int            `json:"NetPaymentDays"`
 	PaymentMethod                     *string         `json:"PaymentMethod"`
 	HeaderPaymentBlockStatus          *bool           `json:"HeaderPaymentBlockStatus"`
@@ -70,7 +74,7 @@ type Header struct {
 	HeaderPaymentRequisitionIsCreated *bool           `json:"HeaderPaymentRequisitionIsCreated"`
 	HeaderPartner                     []HeaderPartner `json:"HeaderPartner"`
 	HeaderPDF                         []HeaderPDF     `json:"HeaderPDF"`
-	Item                              []Item          `json:"Item"`
+	Item                              []Item          `json:"InvoiceDocumentItem"`
 }
 
 type HeaderUpdates struct {
@@ -79,6 +83,7 @@ type HeaderUpdates struct {
 	TotalGrossAmount                  *float32 `json:"TotalGrossAmount"`
 	PaymentTerms                      *string  `json:"PaymentTerms"`
 	DueCalculationBaseDate            *string  `json:"DueCalculationBaseDate"`
+	PaymentDueDate                    *string  `json:"PaymentDueDate"`
 	NetPaymentDays                    *int     `json:"NetPaymentDays"`
 	PaymentMethod                     *string  `json:"PaymentMethod"`
 	HeaderPaymentBlockStatus          *bool    `json:"HeaderPaymentBlockStatus"`
@@ -172,78 +177,77 @@ type AddressUpdates struct {
 }
 
 type Item struct {
-	InvoiceDocument                 *int                 `json:"InvoiceDocument"`
-	InvoiceDocumentItem             *int                 `json:"InvoiceDocumentItem"`
-	DocumentItemCategory            *string              `json:"DocumentItemCategory"`
-	InvoiceDocumentItemText         *string              `json:"InvoiceDocumentItemText"`
-	CreationDate                    *string              `json:"CreationDate"`
-	CreationTime                    *string              `json:"CreationTime"`
-	ItemBillingIsConfirmed          *bool                `json:"ItemBillingIsConfirmed"`
-	ItemBillingConfStatus           *string              `json:"ItemBillingConfStatus"`
-	Buyer                           *int                 `json:"Buyer"`
-	Seller                          *int                 `json:"Seller"`
-	DeliverToParty                  *int                 `json:"DeliverToParty"`
-	DeliverFromParty                *int                 `json:"DeliverFromParty"`
-	ProductStandardID               *string              `json:"ProductStandardID"`
-	Batch                           *string              `json:"Batch"`
-	Product                         *string              `json:"Product"`
-	ProductGroup                    *string              `json:"ProductGroup"`
-	ProductionPlantPartnerFunction  *string              `json:"ProductionPlantPartnerFunction"`
-	ProductionPlantBusinessPartner  *string              `json:"ProductionPlantBusinessPartner"`
-	ProductionPlant                 *string              `json:"ProductionPlant"`
-	ProductionPlantStorageLocation  *string              `json:"ProductionPlantStorageLocation"`
-	IssuingPlantPartnerFunction     *string              `json:"IssuingPlantPartnerFunction"`
-	IssuingPlantBusinessPartner     *string              `json:"IssuingPlantBusinessPartner"`
-	IssuingPlant                    *string              `json:"IssuingPlant"`
-	IssuingPlantStorageLocation     *string              `json:"IssuingPlantStorageLocation"`
-	ReceivingPlantPartnerFunction   *string              `json:"ReceivingPlantPartnerFunction"`
-	ReceivingPlantBusinessPartner   *string              `json:"ReceivingPlantBusinessPartner"`
-	ReceivingPlant                  *string              `json:"ReceivingPlant"`
-	ReceivingPlantStorageLocation   *string              `json:"ReceivingPlantStorageLocation"`
-	ServicesRenderedDate            *string              `json:"ServicesRenderedDate"`
-	InvoiceQuantity                 *float32             `json:"InvoiceQuantity"`
-	InvoiceQuantityUnit             *string              `json:"InvoiceQuantityUnit"`
-	InvoiceQuantityInBaseUnit       *float32             `json:"InvoiceQuantityInBaseUnit"`
-	BaseUnit                        *string              `json:"BaseUnit"`
-	ActualGoodsIssueDate            *string              `json:"ActualGoodsIssueDate"`
-	ActualGoodsIssueTime            *string              `json:"ActualGoodsIssueTime"`
-	ActualGoodsReceiptDate          *string              `json:"ActualGoodsReceiptDate"`
-	ActualGoodsReceiptTime          *string              `json:"ActualGoodsReceiptTime"`
-	ItemGrossWeight                 *float32             `json:"ItemGrossWeight"`
-	ItemNetWeight                   *float32             `json:"ItemNetWeight"`
-	ItemWeightUnit                  *string              `json:"ItemWeightUnit"`
-	NetAmount                       *float32             `json:"NetAmount"`
-	TaxAmount                       *float32             `json:"TaxAmount"`
-	ItemPaymentBlockStatus          *bool                `json:"ItemPaymentBlockStatus"`
-	GrossAmount                     *float32             `json:"GrossAmount"`
-	GoodsIssueOrReceiptSlipNumber   *string              `json:"GoodsIssueOrReceiptSlipNumber"`
-	TransactionCurrency             *string              `json:"TransactionCurrency"`
-	PricingDate                     *string              `json:"PricingDate"`
-	ProductTaxClassification        *string              `json:"ProductTaxClassification"`
-	Project                         *string              `json:"Project"`
-	OrderID                         *int                 `json:"OrderID"`
-	OrderItem                       *int                 `json:"OrderItem"`
-	OrderType                       *string              `json:"OrderType"`
-	ContractType                    *string              `json:"ContractType"`
-	OrderVaridityStartDate          *string              `json:"OrderVaridityStartDate"`
-	OrderVaridityEndDate            *string              `json:"OrderVaridityEndDate"`
-	InvoiceScheduleStartDate        *string              `json:"InvoiceScheduleStartDate"`
-	InvoiceScheduleEndDate          *string              `json:"InvoiceScheduleEndDate"`
-	DeliveryDocument                *int                 `json:"DeliveryDocument"`
-	DeliveryDocumentItem            *int                 `json:"DeliveryDocumentItem"`
-	OriginDocument                  *int                 `json:"OriginDocument"`
-	OriginDocumentItem              *int                 `json:"OriginDocumentItem"`
-	ReferenceDocument               *int                 `json:"ReferenceDocument"`
-	ReferenceDocumentItem           *int                 `json:"ReferenceDocumentItem"`
-	ReferenceDocumentType           *string              `json:"ReferenceDocumentType"`
-	ExternalReferenceDocument       *string              `json:"ExternalReferenceDocument"`
-	ExternalReferenceDocumentItem   *string              `json:"ExternalReferenceDocumentItem"`
-	TaxCode                         *string              `json:"TaxCode"`
-	TaxRate                         *float32             `json:"TaxRate"`
-	CountryOfOrigin                 *string              `json:"CountryOfOrigin"`
-	ItemPaymentRequisitionIsCreated *bool                `json:"ItemPaymentRequisitionIsCreated"`
-	ItemPartner                     []ItemPartner        `json:"ItemPartner"`
-	ItemPricingElement              []ItemPricingElement `json:"ItemPricingElement"`
+	InvoiceDocumentItem             *int               `json:"InvoiceDocumentItem"`
+	DocumentItemCategory            *string            `json:"DocumentItemCategory"`
+	InvoiceDocumentItemText         *string            `json:"InvoiceDocumentItemText"`
+	CreationDate                    *string            `json:"CreationDate"`
+	CreationTime                    *string            `json:"CreationTime"`
+	ItemBillingConfStatus           *string            `json:"ItemBillingConfStatus"`
+	BusinessArea                    *string            `json:"BusinessArea"`
+	DeliverToParty                  *int               `json:"DeliverToParty"`
+	DeliverFromParty                *int               `json:"DeliverFromParty"`
+	ProductStandardID               *string            `json:"ProductStandardID"`
+	Batch                           *string            `json:"Batch"`
+	Product                         *string            `json:"Product"`
+	ProductGroup                    *string            `json:"ProductGroup"`
+	ProductionPlantPartnerFunction  *string            `json:"ProductionPlantPartnerFunction"`
+	ProductionPlantBusinessPartner  *int               `json:"ProductionPlantBusinessPartner"`
+	ProductionPlant                 *string            `json:"ProductionPlant"`
+	ProductionPlantStorageLocation  *string            `json:"ProductionPlantStorageLocation"`
+	IssuingPlantPartnerFunction     *string            `json:"IssuingPlantPartnerFunction"`
+	IssuingPlantBusinessPartner     *int               `json:"IssuingPlantBusinessPartner"`
+	IssuingPlant                    *string            `json:"IssuingPlant"`
+	IssuingPlantStorageLocation     *string            `json:"IssuingPlantStorageLocation"`
+	ReceivingPlantPartnerFunction   *string            `json:"ReceivingPlantPartnerFunction"`
+	ReceivingPlantBusinessPartner   *int               `json:"ReceivingPlantBusinessPartner"`
+	ReceivingPlant                  *string            `json:"ReceivingPlant"`
+	ReceivingPlantStorageLocation   *string            `json:"ReceivingPlantStorageLocation"`
+	ServicesRenderedDate            *string            `json:"ServicesRenderedDate"`
+	InvoiceQuantity                 *float32           `json:"InvoiceQuantity"`
+	InvoiceQuantityUnit             *string            `json:"InvoiceQuantityUnit"`
+	InvoiceQuantityInBaseUnit       *float32           `json:"InvoiceQuantityInBaseUnit"`
+	BaseUnit                        *string            `json:"BaseUnit"`
+	ActualGoodsIssueDate            *string            `json:"ActualGoodsIssueDate"`
+	ActualGoodsIssueTime            *string            `json:"ActualGoodsIssueTime"`
+	ActualGoodsReceiptDate          *string            `json:"ActualGoodsReceiptDate"`
+	ActualGoodsReceiptTime          *string            `json:"ActualGoodsReceiptTime"`
+	ItemGrossWeight                 *float32           `json:"ItemGrossWeight"`
+	ItemNetWeight                   *float32           `json:"ItemNetWeight"`
+	ItemWeightUnit                  *string            `json:"ItemWeightUnit"`
+	ItemVolume                      *float32           `json:"ItemVolume"`
+	ItemVolumeUnit                  *string            `json:"ItemVolumeUnit"`
+	NetAmount                       *float32           `json:"NetAmount"`
+	TaxAmount                       *float32           `json:"TaxAmount"`
+	GrossAmount                     *float32           `json:"GrossAmount"`
+	GoodsIssueOrReceiptSlipNumber   *string            `json:"GoodsIssueOrReceiptSlipNumber"`
+	TransactionCurrency             *string            `json:"TransactionCurrency"`
+	PricingDate                     *string            `json:"PricingDate"`
+	ProductTaxClassification        *string            `json:"ProductTaxClassification"`
+	Project                         *string            `json:"Project"`
+	OrderID                         *int               `json:"OrderID"`
+	OrderItem                       *int               `json:"OrderItem"`
+	OrderType                       *string            `json:"OrderType"`
+	ContractType                    *string            `json:"ContractType"`
+	OrderVaridityStartDate          *string            `json:"OrderVaridityStartDate"`
+	OrderValidityEndDate            *string            `json:"OrderValidityEndDate"`
+	InvoiceScheduleStartDate        *string            `json:"InvoiceScheduleStartDate"`
+	InvoiceScheduleEndDate          *string            `json:"InvoiceScheduleEndDate"`
+	DeliveryDocument                *int               `json:"DeliveryDocument"`
+	DeliveryDocumentItem            *int               `json:"DeliveryDocumentItem"`
+	OriginDocument                  *int               `json:"OriginDocument"`
+	OriginDocumentItem              *int               `json:"OriginDocumentItem"`
+	ReferenceDocument               *int               `json:"ReferenceDocument"`
+	ReferenceDocumentItem           *int               `json:"ReferenceDocumentItem"`
+	ReferenceDocumentType           *string            `json:"ReferenceDocumentType"`
+	ExternalReferenceDocument       *string            `json:"ExternalReferenceDocument"`
+	ExternalReferenceDocumentItem   *string            `json:"ExternalReferenceDocumentItem"`
+	OrderDistributionChannel        *string            `json:"OrderDistributionChannel"`
+	TaxCode                         *string            `json:"TaxCode"`
+	TaxRate                         *float32           `json:"TaxRate"`
+	CountryOfOrigin                 *string            `json:"CountryOfOrigin"`
+	ItemPaymentRequisitionIsCreated *bool              `json:"ItemPaymentRequisitionIsCreated"`
+	ItemPartner                     ItemPartner        `json:"ItemPartner"`
+	ItemPricingElement              ItemPricingElement `json:"ItemPricingElement"`
 }
 
 type ItemUpdates struct {
@@ -252,7 +256,6 @@ type ItemUpdates struct {
 	TransactionCurrency             *string  `json:"TransactionCurrency"`
 	TaxCode                         *string  `json:"TaxCode"`
 	TaxRate                         *float32 `json:"TaxRate"`
-	CountryOfOrigin                 *string  `json:"CountryOfOrigin"`
 	ItemPaymentRequisitionIsCreated *bool    `json:"ItemPaymentRequisitionIsCreated"`
 }
 

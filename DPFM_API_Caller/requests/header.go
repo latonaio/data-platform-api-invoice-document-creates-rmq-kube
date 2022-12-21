@@ -4,10 +4,12 @@ type Header struct {
 	InvoiceDocument                   *int     `json:"InvoiceDocument"`
 	CreationDate                      *string  `json:"CreationDate"`
 	LastChangeDate                    *string  `json:"LastChangeDate"`
-	BillToParty                       *int     `json:"BillToParty"`
 	BillFromParty                     *int     `json:"BillFromParty"`
-	BillToCountry                     *string  `json:"BillToCountry"`
+	BillToParty                       *int     `json:"BillToParty"`
 	BillFromCountry                   *string  `json:"BillFromCountry"`
+	BillToCountry                     *string  `json:"BillToCountry"`
+	Payer                             *int     `json:"Payer"`
+	Payee                             *int     `json:"Payee"`
 	InvoiceDocumentDate               *string  `json:"InvoiceDocumentDate"`
 	InvoiceDocumentTime               *string  `json:"InvoiceDocumentTime"`
 	InvoicePeriodStartDate            *string  `json:"InvoicePeriodStartDate"`
@@ -25,6 +27,7 @@ type Header struct {
 	Incoterms                         *string  `json:"Incoterms"`
 	PaymentTerms                      *string  `json:"PaymentTerms"`
 	DueCalculationBaseDate            *string  `json:"DueCalculationBaseDate"`
+	PaymentDueDate                    *string  `json:"PaymentDueDate"`
 	NetPaymentDays                    *int     `json:"NetPaymentDays"`
 	PaymentMethod                     *string  `json:"PaymentMethod"`
 	HeaderPaymentBlockStatus          *bool    `json:"HeaderPaymentBlockStatus"`
