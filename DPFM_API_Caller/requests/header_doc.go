@@ -3,10 +3,10 @@ package requests
 type HeaderDoc struct {
 	InvoiceDocument          *int    `json:"InvoiceDocument"`
 	DocType                  *string `json:"DocType"`
-	FileExtension            *string `json:"FileExtension"`
 	DocVersionID             *int    `json:"DocVersionID"`
 	DocID                    *string `json:"DocID"`
-	DocIssuerBusinessPartner *int    `json:"DocIssuerBusinessPartner"`
-	FilePath                 *string `json:"FilePath"`
+	FileExtension            *string `json:"FileExtension"`
 	FileName                 *string `json:"FileName"`
+	FilePath                 *string `json:"FilePath"`
+	DocIssuerBusinessPartner *int    `json:"DocIssuerBusinessPartner"`
 }

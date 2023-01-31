@@ -46,7 +46,6 @@ func (c *SubFuncComplementer) ComplementHeader(input *dpfm_api_input_reader.SDC,
 	subfuncSDC.SubfuncError = s.SubfuncError
 
 	subfuncSDC.Message.Header = msg.Header
-	subfuncSDC.Message.HeaderPartner = msg.HeaderPartner
 
 	return err
 }

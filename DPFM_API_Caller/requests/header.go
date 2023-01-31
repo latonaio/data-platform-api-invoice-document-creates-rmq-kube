@@ -3,11 +3,16 @@ package requests
 type Header struct {
 	InvoiceDocument                   *int     `json:"InvoiceDocument"`
 	CreationDate                      *string  `json:"CreationDate"`
+	CreationTime                      *string  `json:"CreationTime"`
 	LastChangeDate                    *string  `json:"LastChangeDate"`
-	BillFromParty                     *int     `json:"BillFromParty"`
+	LastChangeTime                    *string  `json:"LastChangeTime"`
+	SupplyChainRelationshipID         *int     `json:"SupplyChainRelationshipID"`
+	SupplyChainRelationshipBillingID  *int     `json:"SupplyChainRelationshipBillingID"`
+	SupplyChainRelationshipPaymentID  *int     `json:"SupplyChainRelationshipPaymentID"`
 	BillToParty                       *int     `json:"BillToParty"`
-	BillFromCountry                   *string  `json:"BillFromCountry"`
+	BillFromParty                     *int     `json:"BillFromParty"`
 	BillToCountry                     *string  `json:"BillToCountry"`
+	BillFromCountry                   *string  `json:"BillFromCountry"`
 	Payer                             *int     `json:"Payer"`
 	Payee                             *int     `json:"Payee"`
 	InvoiceDocumentDate               *string  `json:"InvoiceDocumentDate"`
@@ -15,9 +20,7 @@ type Header struct {
 	InvoicePeriodStartDate            *string  `json:"InvoicePeriodStartDate"`
 	InvoicePeriodEndDate              *string  `json:"InvoicePeriodEndDate"`
 	AccountingPostingDate             *string  `json:"AccountingPostingDate"`
-	InvoiceDocumentIsCancelled        *bool    `json:"InvoiceDocumentIsCancelled"`
-	CancelledInvoiceDocument          *int     `json:"CancelledInvoiceDocument"`
-	IsExportImportDelivery            *bool    `json:"IsExportImportDelivery"`
+	IsExportImport                    *bool    `json:"IsExportImport"`
 	HeaderBillingIsConfirmed          *bool    `json:"HeaderBillingIsConfirmed"`
 	HeaderBillingConfStatus           *string  `json:"HeaderBillingConfStatus"`
 	TotalNetAmount                    *float32 `json:"TotalNetAmount"`
@@ -30,8 +33,10 @@ type Header struct {
 	PaymentDueDate                    *string  `json:"PaymentDueDate"`
 	NetPaymentDays                    *int     `json:"NetPaymentDays"`
 	PaymentMethod                     *string  `json:"PaymentMethod"`
-	HeaderPaymentBlockStatus          *bool    `json:"HeaderPaymentBlockStatus"`
 	ExternalReferenceDocument         *string  `json:"ExternalReferenceDocument"`
 	DocumentHeaderText                *string  `json:"DocumentHeaderText"`
+	HeaderPaymentBlockStatus          *bool    `json:"HeaderPaymentBlockStatus"`
 	HeaderPaymentRequisitionIsCreated *bool    `json:"HeaderPaymentRequisitionIsCreated"`
+	InvoiceDocumentIsCancelled        *bool    `json:"InvoiceDocumentIsCancelled"`
+	CancelledInvoiceDocument          *int     `json:"CancelledInvoiceDocument"`
 }

@@ -19,11 +19,8 @@ APIサービス URL: https://xxx.xxx.io/api/API_INVOICE_DOCUMENT_SRV/creates/
 data-platform-api-invoice-document-creates-rmq-kube には、次の API をコールするためのリソースが含まれています。  
 
 * A_Header（請求伝票 - ヘッダデータ）
-* A_HeaderPartner（請求伝票 - ヘッダ取引先データ）
-* A_HeaderPartnerContact（請求伝票 - ヘッダ取引先コンタクトデータ）
-* A_HeaderPDF（入出荷 - ヘッダPDFデータ）
 * A_Item（請求伝票 - 明細データ）
-* A_ItemPartner（請求伝票 - 明細取引先データ）
+* A_Partner（請求伝票 - 取引先データ）
 * A_ItemPricingElement（請求伝票 - 明細取引先プラントデータ）
 * A_Address（請求伝票 - 住所データ）
 

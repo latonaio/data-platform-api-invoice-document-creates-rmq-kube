@@ -39,7 +39,7 @@ func NewDPFMAPICaller(
 	}
 }
 
-func (c *DPFMAPICaller) AsyncOrderCreates(
+func (c *DPFMAPICaller) AsyncInvoiceDocumentCreates(
 	accepter []string,
 	input *dpfm_api_input_reader.SDC,
 	output *dpfm_api_output_formatter.SDC,
