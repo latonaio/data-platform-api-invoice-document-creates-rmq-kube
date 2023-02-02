@@ -8,14 +8,14 @@ import (
 	"golang.org/x/xerrors"
 )
 
-func (c *ExistenceConf) paymentMethodExistenceConf(mapper ExConfMapper, input *dpfm_api_input_reader.SDC, existenceMap *[]bool, exconfErrMsg *string, errs *[]error, mtx *sync.Mutex, wg *sync.WaitGroup, log *logger.Logger) {
+func (c *ExistenceConf) headerPaymentMethodExistenceConf(mapper ExConfMapper, input *dpfm_api_input_reader.SDC, existenceMap *[]bool, exconfErrMsg *string, errs *[]error, mtx *sync.Mutex, wg *sync.WaitGroup, log *logger.Logger) {
 	defer wg.Done()
 	wg2 := sync.WaitGroup{}
 	exReqTimes := 0
 	headers := make([]dpfm_api_input_reader.Header, 0, 1)
 	headers = append(headers, input.Header)
 	for _, header := range headers {
-		paymentMethod, err := getPaymentMethodExistenceConfKey(mapper, &header, exconfErrMsg)
+		paymentMethod, err := getHeaderPaymentMethodExistenceConfKey(mapper, &header, exconfErrMsg)
 		if err != nil {
 			*errs = append(*errs, err)
 			return
@@ -73,21 +73,23 @@ func (c *ExistenceConf) paymentMethodExistenceConfRequest(paymentMethod string, 
 	return "", nil
 }
 
-func getPaymentMethodExistenceConfKey(mapper ExConfMapper, header *dpfm_api_input_reader.Header, exconfErrMsg *string) (string, error) {
+func getHeaderPaymentMethodExistenceConfKey(mapper ExConfMapper, header *dpfm_api_input_reader.Header, exconfErrMsg *string) (string, error) {
 	var paymentMethod string
 	var err error
 
-	if header.PaymentMethod == nil {
-		err = xerrors.Errorf("cannot specify null keys")
-		return "", err
-	}
-	if header.PaymentMethod != nil {
-		if len(*header.PaymentMethod) == 0 {
+	switch mapper.Field {
+	case "PaymentMethod":
+		if header.PaymentMethod == nil {
 			err = xerrors.Errorf("cannot specify null keys")
 			return "", err
 		}
+		if header.PaymentMethod != nil {
+			if len(*header.PaymentMethod) == 0 {
+				err = xerrors.Errorf("cannot specify null keys")
+				return "", err
+			}
+		}
+		paymentMethod = *header.PaymentMethod
 	}
-	paymentMethod = *header.PaymentMethod
-
 	return paymentMethod, nil
 }

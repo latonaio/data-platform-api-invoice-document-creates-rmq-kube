@@ -53,24 +53,21 @@ func (c *ExistenceConf) Conf(data *dpfm_api_input_reader.SDC, ssdc *dpfm_api_out
 		}
 		tabletag := *v.Tabletag
 		switch tabletag {
-		case "Incoterms":
-			wg.Add(1)
-			go c.incotermsExistenceConf(v, data, &existenceMap, &resMsg, &errs, mtx, &wg, l)
 		case "PaymentMethod":
 			wg.Add(1)
-			go c.paymentMethodExistenceConf(v, data, &existenceMap, &resMsg, &errs, mtx, &wg, l)
+			go c.headerPaymentMethodExistenceConf(v, data, &existenceMap, &resMsg, &errs, mtx, &wg, l)
 		case "PaymentTerms":
 			wg.Add(1)
-			go c.paymentTermsExistenceConf(v, data, &existenceMap, &resMsg, &errs, mtx, &wg, l)
-		case "SupplyChainRelationshipGeneral":
-			wg.Add(1)
-			go c.supplyChainRelationshipGeneralExistenceConf(v, data, &existenceMap, &resMsg, &errs, mtx, &wg, l)
-		case "SupplyChainRelationshipBillingRelation":
-			wg.Add(1)
-			go c.supplyChainRelationshipBillingRelationExistenceConf(v, data, &existenceMap, &resMsg, &errs, mtx, &wg, l)
-		case "SupplyChainRelationshipPaymentRelation":
-			wg.Add(1)
-			go c.supplyChainRelationshipPaymentRelationExistenceConf(v, data, &existenceMap, &resMsg, &errs, mtx, &wg, l)
+			go c.headerPaymentTermsExistenceConf(v, data, &existenceMap, &resMsg, &errs, mtx, &wg, l)
+			// case "SupplyChainRelationshipGeneral":
+			// 	wg.Add(1)
+			// 	go c.supplyChainRelationshipGeneralExistenceConf(v, data, &existenceMap, &resMsg, &errs, mtx, &wg, l)
+			// case "SupplyChainRelationshipBillingRelation":
+			// 	wg.Add(1)
+			// 	go c.supplyChainRelationshipBillingRelationExistenceConf(v, data, &existenceMap, &resMsg, &errs, mtx, &wg, l)
+			// case "SupplyChainRelationshipPaymentRelation":
+			// 	wg.Add(1)
+			// 	go c.supplyChainRelationshipPaymentRelationExistenceConf(v, data, &existenceMap, &resMsg, &errs, mtx, &wg, l)
 		}
 	}
 
