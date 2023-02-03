@@ -54,23 +54,23 @@ type EC_MC struct {
 }
 
 type SDC struct {
-	ConnectionKey                  string                         `json:"connection_key"`
-	Result                         bool                           `json:"result"`
-	RedisKey                       string                         `json:"redis_key"`
-	Filepath                       string                         `json:"filepath"`
-	APIStatusCode                  int                            `json:"api_status_code"`
-	RuntimeSessionID               string                         `json:"runtime_session_id"`
-	BusinessPartner                *int                           `json:"business_partner"`
-	ServiceLabel                   string                         `json:"service_label"`
-	APIType                        string                         `json:"api_type"`
-	InvoiceDocumentInputParameters InvoiceDocumentInputParameters `json:"InvoiceDocumentInputParameters"`
-	Header                         Header                         `json:"InvoiceDocument"`
-	APISchema                      string                         `json:"api_schema"`
-	Accepter                       []string                       `json:"accepter"`
-	Deleted                        bool                           `json:"deleted"`
+	ConnectionKey    string          `json:"connection_key"`
+	Result           bool            `json:"result"`
+	RedisKey         string          `json:"redis_key"`
+	Filepath         string          `json:"filepath"`
+	APIStatusCode    int             `json:"api_status_code"`
+	RuntimeSessionID string          `json:"runtime_session_id"`
+	BusinessPartner  *int            `json:"business_partner"`
+	ServiceLabel     string          `json:"service_label"`
+	APIType          string          `json:"api_type"`
+	InputParameters  InputParameters `json:"InputParameters"`
+	Header           Header          `json:"InvoiceDocument"`
+	APISchema        string          `json:"api_schema"`
+	Accepter         []string        `json:"accepter"`
+	Deleted          bool            `json:"deleted"`
 }
 
-type InvoiceDocumentInputParameters struct {
+type InputParameters struct {
 	InvoiceDocumentDate       *[]*string `json:"InvoiceDocumentDate"`
 	InvoiceDocumentDateTo     *string    `json:"InvoiceDocumentDateTo"`
 	InvoiceDocumentDateFrom   *string    `json:"InvoiceDocumentDateFrom"`

@@ -8,7 +8,7 @@
 	"business_partner": null,
 	"service_label": "INVOICE_DOCUMENT",
 	"api_type": "creates",
-	"InvoiceDocumentInputParameters": {
+	"InputParameters": {
 		"InvoiceDocumentDate": ["", ""],
 		"InvoiceDocumentDateTo": "",
 		"InvoiceDocumentDateFrom": "",
