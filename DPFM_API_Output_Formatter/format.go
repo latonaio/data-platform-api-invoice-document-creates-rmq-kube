@@ -1,58 +1,92 @@
 package dpfm_api_output_formatter
 
 import (
+	dpfm_api_processing_formatter "data-platform-api-invoice-document-creates-rmq-kube/DPFM_API_Processing_Formatter"
 	"data-platform-api-invoice-document-creates-rmq-kube/sub_func_complementer"
 )
 
-func ConvertToHeaderCreates(subfuncSDC *sub_func_complementer.SDC) *HeaderCreates {
-	data := subfuncSDC.Message.Header
+func ConvertToHeaderCreates(subfuncSDC *sub_func_complementer.SDC) *[]Header {
+	var header []Header
 
-	headerCreates := &HeaderCreates{
-		InvoiceDocument:                   data.InvoiceDocument,
-		CreationDate:                      data.CreationDate,
-		CreationTime:                      data.CreationTime,
-		LastChangeDate:                    data.LastChangeDate,
-		LastChangeTime:                    data.LastChangeTime,
-		SupplyChainRelationshipID:         data.SupplyChainRelationshipID,
-		SupplyChainRelationshipBillingID:  data.SupplyChainRelationshipBillingID,
-		SupplyChainRelationshipPaymentID:  data.SupplyChainRelationshipPaymentID,
-		BillToParty:                       data.BillToParty,
-		BillFromParty:                     data.BillFromParty,
-		BillToCountry:                     data.BillToCountry,
-		BillFromCountry:                   data.BillFromCountry,
-		Payer:                             data.Payer,
-		Payee:                             data.Payee,
-		InvoiceDocumentDate:               data.InvoiceDocumentDate,
-		InvoiceDocumentTime:               data.InvoiceDocumentTime,
-		InvoicePeriodStartDate:            data.InvoicePeriodStartDate,
-		InvoicePeriodEndDate:              data.InvoicePeriodEndDate,
-		AccountingPostingDate:             data.AccountingPostingDate,
-		IsExportImport:                    data.IsExportImport,
-		HeaderBillingIsConfirmed:          data.HeaderBillingIsConfirmed,
-		HeaderBillingConfStatus:           data.HeaderBillingConfStatus,
-		TotalNetAmount:                    data.TotalNetAmount,
-		TotalTaxAmount:                    data.TotalTaxAmount,
-		TotalGrossAmount:                  data.TotalGrossAmount,
-		TransactionCurrency:               data.TransactionCurrency,
-		Incoterms:                         data.Incoterms,
-		PaymentTerms:                      data.PaymentTerms,
-		DueCalculationBaseDate:            data.DueCalculationBaseDate,
-		PaymentDueDate:                    data.PaymentDueDate,
-		NetPaymentDays:                    data.NetPaymentDays,
-		PaymentMethod:                     data.PaymentMethod,
-		ExternalReferenceDocument:         data.ExternalReferenceDocument,
-		DocumentHeaderText:                data.DocumentHeaderText,
-		HeaderPaymentBlockStatus:          data.HeaderPaymentBlockStatus,
-		HeaderPaymentRequisitionIsCreated: data.HeaderPaymentRequisitionIsCreated,
-		InvoiceDocumentIsCancelled:        data.InvoiceDocumentIsCancelled,
-		CancelledInvoiceDocument:          data.CancelledInvoiceDocument,
+	for _, data := range *subfuncSDC.Message.Header {
+		header = append(header, Header{
+			InvoiceDocument:                   data.InvoiceDocument,
+			CreationDate:                      data.CreationDate,
+			CreationTime:                      data.CreationTime,
+			LastChangeDate:                    data.LastChangeDate,
+			LastChangeTime:                    data.LastChangeTime,
+			SupplyChainRelationshipID:         data.SupplyChainRelationshipID,
+			SupplyChainRelationshipBillingID:  data.SupplyChainRelationshipBillingID,
+			SupplyChainRelationshipPaymentID:  data.SupplyChainRelationshipPaymentID,
+			BillToParty:                       data.BillToParty,
+			BillFromParty:                     data.BillFromParty,
+			BillToCountry:                     data.BillToCountry,
+			BillFromCountry:                   data.BillFromCountry,
+			Payer:                             data.Payer,
+			Payee:                             data.Payee,
+			InvoiceDocumentDate:               data.InvoiceDocumentDate,
+			InvoiceDocumentTime:               data.InvoiceDocumentTime,
+			InvoicePeriodStartDate:            data.InvoicePeriodStartDate,
+			InvoicePeriodEndDate:              data.InvoicePeriodEndDate,
+			AccountingPostingDate:             data.AccountingPostingDate,
+			IsExportImport:                    data.IsExportImport,
+			HeaderBillingIsConfirmed:          data.HeaderBillingIsConfirmed,
+			HeaderBillingConfStatus:           data.HeaderBillingConfStatus,
+			TotalNetAmount:                    data.TotalNetAmount,
+			TotalTaxAmount:                    data.TotalTaxAmount,
+			TotalGrossAmount:                  data.TotalGrossAmount,
+			TransactionCurrency:               data.TransactionCurrency,
+			Incoterms:                         data.Incoterms,
+			PaymentTerms:                      data.PaymentTerms,
+			DueCalculationBaseDate:            data.DueCalculationBaseDate,
+			PaymentDueDate:                    data.PaymentDueDate,
+			NetPaymentDays:                    data.NetPaymentDays,
+			PaymentMethod:                     data.PaymentMethod,
+			ExternalReferenceDocument:         data.ExternalReferenceDocument,
+			DocumentHeaderText:                data.DocumentHeaderText,
+			HeaderIsCleared:                   data.HeaderIsCleared,
+			HeaderPaymentBlockStatus:          data.HeaderPaymentBlockStatus,
+			HeaderPaymentRequisitionIsCreated: data.HeaderPaymentRequisitionIsCreated,
+			IsCancelled:                       data.IsCancelled,
+		})
 	}
 
-	return headerCreates
+	return &header
 
 }
 
-func ConvertToPartner(subfuncSDC *sub_func_complementer.SDC) *[]Partner {
+func ConvertToHeaderUpdates(headerUpdates *[]dpfm_api_processing_formatter.HeaderUpdates) *[]Header {
+	var header []Header
+
+	for _, data := range *headerUpdates {
+		header = append(header, Header{
+			InvoiceDocumentDate:               data.InvoiceDocumentDate,
+			InvoiceDocumentTime:               data.InvoiceDocumentTime,
+			InvoicePeriodStartDate:            data.InvoicePeriodStartDate,
+			InvoicePeriodEndDate:              data.InvoicePeriodEndDate,
+			AccountingPostingDate:             data.AccountingPostingDate,
+			HeaderBillingIsConfirmed:          data.HeaderBillingIsConfirmed,
+			TotalNetAmount:                    data.TotalNetAmount,
+			TotalTaxAmount:                    data.TotalTaxAmount,
+			TotalGrossAmount:                  data.TotalGrossAmount,
+			PaymentTerms:                      data.PaymentTerms,
+			DueCalculationBaseDate:            data.DueCalculationBaseDate,
+			PaymentDueDate:                    data.PaymentDueDate,
+			NetPaymentDays:                    data.NetPaymentDays,
+			PaymentMethod:                     data.PaymentMethod,
+			ExternalReferenceDocument:         data.ExternalReferenceDocument,
+			DocumentHeaderText:                data.DocumentHeaderText,
+			HeaderIsCleared:                   data.HeaderIsCleared,
+			HeaderPaymentBlockStatus:          data.HeaderPaymentBlockStatus,
+			HeaderPaymentRequisitionIsCreated: data.HeaderPaymentRequisitionIsCreated,
+		})
+	}
+
+	return &header
+
+}
+
+func ConvertToPartnerCreates(subfuncSDC *sub_func_complementer.SDC) *[]Partner {
 	var partner []Partner
 
 	for _, data := range *subfuncSDC.Message.Partner {
@@ -74,26 +108,7 @@ func ConvertToPartner(subfuncSDC *sub_func_complementer.SDC) *[]Partner {
 	return &partner
 }
 
-func ConvertToHeaderDoc(subfuncSDC *sub_func_complementer.SDC) *[]HeaderDoc {
-	var headerDoc []HeaderDoc
-
-	for _, data := range *subfuncSDC.Message.HeaderDoc {
-		headerDoc = append(headerDoc, HeaderDoc{
-			InvoiceDocument:          data.InvoiceDocument,
-			DocType:                  data.DocType,
-			DocVersionID:             data.DocVersionID,
-			DocID:                    data.DocID,
-			FileExtension:            data.FileExtension,
-			FileName:                 data.FileName,
-			FilePath:                 data.FilePath,
-			DocIssuerBusinessPartner: data.DocIssuerBusinessPartner,
-		})
-	}
-
-	return &headerDoc
-}
-
-func ConvertToAddress(subfuncSDC *sub_func_complementer.SDC) *[]Address {
+func ConvertToAddressCreates(subfuncSDC *sub_func_complementer.SDC) *[]Address {
 	var address []Address
 
 	for _, data := range *subfuncSDC.Message.Address {
@@ -115,7 +130,7 @@ func ConvertToAddress(subfuncSDC *sub_func_complementer.SDC) *[]Address {
 	return &address
 }
 
-func ConvertToItem(subfuncSDC *sub_func_complementer.SDC) *[]Item {
+func ConvertToItemCreates(subfuncSDC *sub_func_complementer.SDC) *[]Item {
 	var item []Item
 
 	for _, data := range *subfuncSDC.Message.Item {
@@ -175,8 +190,8 @@ func ConvertToItem(subfuncSDC *sub_func_complementer.SDC) *[]Item {
 			OrderItem:                               data.OrderItem,
 			OrderType:                               data.OrderType,
 			ContractType:                            data.ContractType,
-			OrderValidityStartDate:                  data.OrderValidityStartDate,
-			OrderValidityEndDate:                    data.OrderValidityEndDate,
+			OrderVaridityStartDate:                  data.OrderVaridityStartDate,
+			OrderVaridityEndDate:                    data.OrderVaridityEndDate,
 			InvoicePeriodStartDate:                  data.InvoicePeriodStartDate,
 			InvoicePeriodEndDate:                    data.InvoicePeriodEndDate,
 			DeliveryDocument:                        data.DeliveryDocument,
@@ -192,14 +207,35 @@ func ConvertToItem(subfuncSDC *sub_func_complementer.SDC) *[]Item {
 			CountryOfOrigin:                         data.CountryOfOrigin,
 			CountryOfOriginLanguage:                 data.CountryOfOriginLanguage,
 			ItemPaymentRequisitionIsCreated:         data.ItemPaymentRequisitionIsCreated,
+			ItemIsCleared:                           data.ItemIsCleared,
 			ItemPaymentBlockStatus:                  data.ItemPaymentBlockStatus,
+			IsCancelled:                             data.IsCancelled,
 		})
 	}
 
 	return &item
 }
 
-func ConvertToItemPricingElement(subfuncSDC *sub_func_complementer.SDC) *[]ItemPricingElement {
+func ConvertToItemUpdates(itemUpdates *[]dpfm_api_processing_formatter.ItemUpdates) *[]Item {
+	var item []Item
+
+	for _, data := range *itemUpdates {
+		item = append(item, Item{
+			ItemBillingIsConfirmed:        data.ItemBillingIsConfirmed,
+			NetAmount:                     data.NetAmount,
+			TaxAmount:                     data.TaxAmount,
+			GrossAmount:                   data.GrossAmount,
+			ExternalReferenceDocument:     data.ExternalReferenceDocument,
+			ExternalReferenceDocumentItem: data.ExternalReferenceDocumentItem,
+			ItemIsCleared:                 data.ItemIsCleared,
+			ItemPaymentBlockStatus:        data.ItemPaymentBlockStatus,
+		})
+	}
+
+	return &item
+}
+
+func ConvertToItemPricingElementCreates(subfuncSDC *sub_func_complementer.SDC) *[]ItemPricingElement {
 	var itemPricingElement []ItemPricingElement
 
 	for _, data := range *subfuncSDC.Message.ItemPricingElement {

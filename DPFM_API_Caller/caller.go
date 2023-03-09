@@ -140,6 +140,24 @@ func (c *DPFMAPICaller) subfuncProcess(
 			c.headerCreate(mtx, wg, subFuncFin, input, output, subfuncSDC, errs, log)
 		case "Item":
 			c.itemCreate(mtx, wg, subFuncFin, input, output, subfuncSDC, errs, log)
+		case "Partner":
+			if contains(accepter, "Item") {
+				subFuncFin <- nil
+			} else {
+				c.itemCreate(mtx, wg, subFuncFin, input, output, subfuncSDC, errs, log)
+			}
+		case "Address":
+			if contains(accepter, "Item") {
+				subFuncFin <- nil
+			} else {
+				c.itemCreate(mtx, wg, subFuncFin, input, output, subfuncSDC, errs, log)
+			}
+		case "ItemPricingElement":
+			if contains(accepter, "Item") {
+				subFuncFin <- nil
+			} else {
+				c.itemCreate(mtx, wg, subFuncFin, input, output, subfuncSDC, errs, log)
+			}
 		default:
 			wg.Done()
 		}
@@ -242,4 +260,13 @@ func checkResult(msg rabbitmq.RabbitmqMessage) bool {
 
 func getBoolPtr(b bool) *bool {
 	return &b
+}
+
+func contains(slice []string, target string) bool {
+	for _, v := range slice {
+		if v == target {
+			return true
+		}
+	}
+	return false
 }

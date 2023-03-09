@@ -1,7 +1,7 @@
 package requests
 
 type Header struct {
-	InvoiceDocument                   *int     `json:"InvoiceDocument"`
+	InvoiceDocument                   int      `json:"InvoiceDocument"`
 	CreationDate                      *string  `json:"CreationDate"`
 	CreationTime                      *string  `json:"CreationTime"`
 	LastChangeDate                    *string  `json:"LastChangeDate"`
@@ -35,8 +35,8 @@ type Header struct {
 	PaymentMethod                     *string  `json:"PaymentMethod"`
 	ExternalReferenceDocument         *string  `json:"ExternalReferenceDocument"`
 	DocumentHeaderText                *string  `json:"DocumentHeaderText"`
+	HeaderIsCleared                   *bool    `json:"HeaderIsCleared"`
 	HeaderPaymentBlockStatus          *bool    `json:"HeaderPaymentBlockStatus"`
 	HeaderPaymentRequisitionIsCreated *bool    `json:"HeaderPaymentRequisitionIsCreated"`
-	InvoiceDocumentIsCancelled        *bool    `json:"InvoiceDocumentIsCancelled"`
-	CancelledInvoiceDocument          *int     `json:"CancelledInvoiceDocument"`
+	IsCancelled                       *bool    `json:"IsCancelled"`
 }

@@ -1,8 +1,8 @@
 package requests
 
 type Item struct {
-	InvoiceDocument                         *int     `json:"InvoiceDocument"`
-	InvoiceDocumentItem                     *int     `json:"InvoiceDocumentItem"`
+	InvoiceDocument                         int      `json:"InvoiceDocument"`
+	InvoiceDocumentItem                     int      `json:"InvoiceDocumentItem"`
 	InvoiceDocumentItemCategory             *string  `json:"InvoiceDocumentItemCategory"`
 	SupplyChainRelationshipID               *int     `json:"SupplyChainRelationshipID"`
 	SupplyChainRelationshipDeliveryID       *int     `json:"SupplyChainRelationshipDeliveryID"`
@@ -26,7 +26,7 @@ type Item struct {
 	DeliverToPlantStorageLocation           *string  `json:"DeliverToPlantStorageLocation"`
 	DeliverFromPlant                        *string  `json:"DeliverFromPlant"`
 	DeliverFromPlantStorageLocation         *string  `json:"DeliverFromPlantStorageLocation"`
-	ProductionPlantBusinessPartner          *int     `json:"ProductionPlantBusinessPartner"`
+	ProductionPlantBusinessPartner          *string  `json:"ProductionPlantBusinessPartner"`
 	ProductionPlant                         *string  `json:"ProductionPlant"`
 	ProductionPlantStorageLocation          *string  `json:"ProductionPlantStorageLocation"`
 	ServicesRenderedDate                    *string  `json:"ServicesRenderedDate"`
@@ -56,8 +56,8 @@ type Item struct {
 	OrderItem                               *int     `json:"OrderItem"`
 	OrderType                               *string  `json:"OrderType"`
 	ContractType                            *string  `json:"ContractType"`
-	OrderValidityStartDate                  *string  `json:"OrderValidityStartDate"`
-	OrderValidityEndDate                    *string  `json:"OrderValidityEndDate"`
+	OrderVaridityStartDate                  *string  `json:"OrderVaridityStartDate"`
+	OrderVaridityEndDate                    *string  `json:"OrderVaridityEndDate"`
 	InvoicePeriodStartDate                  *string  `json:"InvoicePeriodStartDate"`
 	InvoicePeriodEndDate                    *string  `json:"InvoicePeriodEndDate"`
 	DeliveryDocument                        *int     `json:"DeliveryDocument"`
@@ -73,5 +73,7 @@ type Item struct {
 	CountryOfOrigin                         *string  `json:"CountryOfOrigin"`
 	CountryOfOriginLanguage                 *string  `json:"CountryOfOriginLanguage"`
 	ItemPaymentRequisitionIsCreated         *bool    `json:"ItemPaymentRequisitionIsCreated"`
+	ItemIsCleared                           *bool    `json:"ItemIsCleared"`
 	ItemPaymentBlockStatus                  *bool    `json:"ItemPaymentBlockStatus"`
+	IsCancelled                             *bool    `json:"IsCancelled"`
 }

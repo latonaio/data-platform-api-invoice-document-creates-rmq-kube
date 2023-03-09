@@ -12,8 +12,8 @@ type Returns struct {
 	SupplyChainRelationshipBillingRelationReturn *SupplyChainRelationshipBillingRelationReturn `json:"SupplyChainRelationshipBillingRelation,omitempty"`
 	SupplyChainRelationshipPaymentRelationReturn *SupplyChainRelationshipPaymentRelationReturn `json:"SupplyChainRelationshipPaymentRelation,omitempty"`
 	IncotermsReturn                              IncotermsReturn                               `json:"IncotermsReturn"`
-	PaymentTermsReturn                           PaymentTermsReturn                            `json:"PaymentTermsReturn"`
-	PaymentMethodReturn                          PaymentMethodReturn                           `json:"PaymentMethodReturn"`
+	PaymentTermsReturn                           PaymentTermsReturn                            `json:"PaymentTerms"`
+	PaymentMethodReturn                          PaymentMethodReturn                           `json:"PaymentMethod"`
 	APISchema                                    string                                        `json:"api_schema"`
 	Accepter                                     []string                                      `json:"accepter"`
 	Deleted                                      bool                                          `json:"deleted"`

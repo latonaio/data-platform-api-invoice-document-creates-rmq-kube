@@ -25,32 +25,32 @@ type SDC struct {
 }
 
 type Message struct {
-	HeaderCreates      *HeaderCreates        `json:"Header"`
+	Header             *[]Header             `json:"Header"`
 	Item               *[]Item               `json:"Item"`
 	Partner            *[]Partner            `json:"Partner"`
 	Address            *[]Address            `json:"Address"`
 	ItemPricingElement *[]ItemPricingElement `json:"ItemPricingElement"`
 }
 
-type HeaderCreates struct {
-	InvoiceDocument                   *int     `json:"InvoiceDocument"`
-	CreationDate                      *string  `json:"CreationDate"`
-	CreationTime                      *string  `json:"CreationTime"`
-	LastChangeDate                    *string  `json:"LastChangeDate"`
-	LastChangeTime                    *string  `json:"LastChangeTime"`
-	SupplyChainRelationshipID         *int     `json:"SupplyChainRelationshipID"`
-	SupplyChainRelationshipBillingID  *int     `json:"SupplyChainRelationshipBillingID"`
-	SupplyChainRelationshipPaymentID  *int     `json:"SupplyChainRelationshipPaymentID"`
-	BillToParty                       *int     `json:"BillToParty"`
-	BillFromParty                     *int     `json:"BillFromParty"`
-	BillToCountry                     *string  `json:"BillToCountry"`
-	BillFromCountry                   *string  `json:"BillFromCountry"`
-	Payer                             *int     `json:"Payer"`
-	Payee                             *int     `json:"Payee"`
-	InvoiceDocumentDate               *string  `json:"InvoiceDocumentDate"`
-	InvoiceDocumentTime               *string  `json:"InvoiceDocumentTime"`
-	InvoicePeriodStartDate            *string  `json:"InvoicePeriodStartDate"`
-	InvoicePeriodEndDate              *string  `json:"InvoicePeriodEndDate"`
+type Header struct {
+	InvoiceDocument                   int      `json:"InvoiceDocument"`
+	CreationDate                      string   `json:"CreationDate"`
+	CreationTime                      string   `json:"CreationTime"`
+	LastChangeDate                    string   `json:"LastChangeDate"`
+	LastChangeTime                    string   `json:"LastChangeTime"`
+	SupplyChainRelationshipID         int      `json:"SupplyChainRelationshipID"`
+	SupplyChainRelationshipBillingID  int      `json:"SupplyChainRelationshipBillingID"`
+	SupplyChainRelationshipPaymentID  int      `json:"SupplyChainRelationshipPaymentID"`
+	BillToParty                       int      `json:"BillToParty"`
+	BillFromParty                     int      `json:"BillFromParty"`
+	BillToCountry                     string   `json:"BillToCountry"`
+	BillFromCountry                   string   `json:"BillFromCountry"`
+	Payer                             int      `json:"Payer"`
+	Payee                             int      `json:"Payee"`
+	InvoiceDocumentDate               string   `json:"InvoiceDocumentDate"`
+	InvoiceDocumentTime               string   `json:"InvoiceDocumentTime"`
+	InvoicePeriodStartDate            string   `json:"InvoicePeriodStartDate"`
+	InvoicePeriodEndDate              string   `json:"InvoicePeriodEndDate"`
 	AccountingPostingDate             *string  `json:"AccountingPostingDate"`
 	IsExportImport                    *bool    `json:"IsExportImport"`
 	HeaderBillingIsConfirmed          *bool    `json:"HeaderBillingIsConfirmed"`
@@ -67,16 +67,16 @@ type HeaderCreates struct {
 	PaymentMethod                     *string  `json:"PaymentMethod"`
 	ExternalReferenceDocument         *string  `json:"ExternalReferenceDocument"`
 	DocumentHeaderText                *string  `json:"DocumentHeaderText"`
+	HeaderIsCleared                   *bool    `json:"HeaderIsCleared"`
 	HeaderPaymentBlockStatus          *bool    `json:"HeaderPaymentBlockStatus"`
 	HeaderPaymentRequisitionIsCreated *bool    `json:"HeaderPaymentRequisitionIsCreated"`
-	InvoiceDocumentIsCancelled        *bool    `json:"InvoiceDocumentIsCancelled"`
-	CancelledInvoiceDocument          *int     `json:"CancelledInvoiceDocument"`
+	IsCancelled                       *bool    `json:"IsCancelled"`
 }
 
 type Partner struct {
-	InvoiceDocument         *int    `json:"InvoiceDocument"`
-	PartnerFunction         *string `json:"PartnerFunction"`
-	BusinessPartner         *int    `json:"BusinessPartner"`
+	InvoiceDocument         int     `json:"InvoiceDocument"`
+	PartnerFunction         string  `json:"PartnerFunction"`
+	BusinessPartner         int     `json:"BusinessPartner"`
 	BusinessPartnerFullName *string `json:"BusinessPartnerFullName"`
 	BusinessPartnerName     *string `json:"BusinessPartnerName"`
 	Organization            *string `json:"Organization"`
@@ -87,20 +87,9 @@ type Partner struct {
 	AddressID               *int    `json:"AddressID"`
 }
 
-type HeaderDoc struct {
-	InvoiceDocument          *int    `json:"InvoiceDocument"`
-	DocType                  *string `json:"DocType"`
-	DocVersionID             *int    `json:"DocVersionID"`
-	DocID                    *string `json:"DocID"`
-	FileExtension            *string `json:"FileExtension"`
-	FileName                 *string `json:"FileName"`
-	FilePath                 *string `json:"FilePath"`
-	DocIssuerBusinessPartner *int    `json:"DocIssuerBusinessPartner"`
-}
-
 type Address struct {
-	InvoiceDocument *int    `json:"InvoiceDocument"`
-	AddressID       *int    `json:"AddressID"`
+	InvoiceDocument int     `json:"InvoiceDocument"`
+	AddressID       int     `json:"AddressID"`
 	PostalCode      *string `json:"PostalCode"`
 	LocalRegion     *string `json:"LocalRegion"`
 	Country         *string `json:"Country"`
@@ -113,22 +102,22 @@ type Address struct {
 }
 
 type Item struct {
-	InvoiceDocument                         *int     `json:"InvoiceDocument"`
-	InvoiceDocumentItem                     *int     `json:"InvoiceDocumentItem"`
+	InvoiceDocument                         int      `json:"InvoiceDocument"`
+	InvoiceDocumentItem                     int      `json:"InvoiceDocumentItem"`
 	InvoiceDocumentItemCategory             *string  `json:"InvoiceDocumentItemCategory"`
-	SupplyChainRelationshipID               *int     `json:"SupplyChainRelationshipID"`
-	SupplyChainRelationshipDeliveryID       *int     `json:"SupplyChainRelationshipDeliveryID"`
-	SupplyChainRelationshipDeliveryPlantID  *int     `json:"SupplyChainRelationshipDeliveryPlantID"`
+	SupplyChainRelationshipID               int      `json:"SupplyChainRelationshipID"`
+	SupplyChainRelationshipDeliveryID       int      `json:"SupplyChainRelationshipDeliveryID"`
+	SupplyChainRelationshipDeliveryPlantID  int      `json:"SupplyChainRelationshipDeliveryPlantID"`
 	InvoiceDocumentItemText                 *string  `json:"InvoiceDocumentItemText"`
-	InvoiceDocumentItemTextByBuyer          *string  `json:"InvoiceDocumentItemTextByBuyer"`
-	InvoiceDocumentItemTextBySeller         *string  `json:"InvoiceDocumentItemTextBySeller"`
+	InvoiceDocumentItemTextByBuyer          string   `json:"InvoiceDocumentItemTextByBuyer"`
+	InvoiceDocumentItemTextBySeller         string   `json:"InvoiceDocumentItemTextBySeller"`
 	Product                                 *string  `json:"Product"`
 	ProductGroup                            *string  `json:"ProductGroup"`
 	ProductStandardID                       *string  `json:"ProductStandardID"`
-	CreationDate                            *string  `json:"CreationDate"`
-	CreationTime                            *string  `json:"CreationTime"`
-	LastChangeDate                          *string  `json:"LastChangeDate"`
-	LastChangeTime                          *string  `json:"LastChangeTime"`
+	CreationDate                            string   `json:"CreationDate"`
+	CreationTime                            string   `json:"CreationTime"`
+	LastChangeDate                          string   `json:"LastChangeDate"`
+	LastChangeTime                          string   `json:"LastChangeTime"`
 	ItemBillingIsConfirmed                  *bool    `json:"ItemBillingIsConfirmed"`
 	Buyer                                   *int     `json:"Buyer"`
 	Seller                                  *int     `json:"Seller"`
@@ -138,7 +127,7 @@ type Item struct {
 	DeliverToPlantStorageLocation           *string  `json:"DeliverToPlantStorageLocation"`
 	DeliverFromPlant                        *string  `json:"DeliverFromPlant"`
 	DeliverFromPlantStorageLocation         *string  `json:"DeliverFromPlantStorageLocation"`
-	ProductionPlantBusinessPartner          *int     `json:"ProductionPlantBusinessPartner"`
+	ProductionPlantBusinessPartner          *string  `json:"ProductionPlantBusinessPartner"`
 	ProductionPlant                         *string  `json:"ProductionPlant"`
 	ProductionPlantStorageLocation          *string  `json:"ProductionPlantStorageLocation"`
 	ServicesRenderedDate                    *string  `json:"ServicesRenderedDate"`
@@ -159,17 +148,17 @@ type Item struct {
 	GoodsIssueOrReceiptSlipNumber           *string  `json:"GoodsIssueOrReceiptSlipNumber"`
 	TransactionCurrency                     *string  `json:"TransactionCurrency"`
 	PricingDate                             *string  `json:"PricingDate"`
-	TransactionTaxClassification            *string  `json:"TransactionTaxClassification"`
-	ProductTaxClassificationBillToCountry   *string  `json:"ProductTaxClassificationBillToCountry"`
-	ProductTaxClassificationBillFromCountry *string  `json:"ProductTaxClassificationBillFromCountry"`
-	DefinedTaxClassification                *string  `json:"DefinedTaxClassification"`
+	TransactionTaxClassification            string   `json:"TransactionTaxClassification"`
+	ProductTaxClassificationBillToCountry   string   `json:"ProductTaxClassificationBillToCountry"`
+	ProductTaxClassificationBillFromCountry string   `json:"ProductTaxClassificationBillFromCountry"`
+	DefinedTaxClassification                string   `json:"DefinedTaxClassification"`
 	Project                                 *string  `json:"Project"`
 	OrderID                                 *int     `json:"OrderID"`
 	OrderItem                               *int     `json:"OrderItem"`
 	OrderType                               *string  `json:"OrderType"`
 	ContractType                            *string  `json:"ContractType"`
-	OrderValidityStartDate                  *string  `json:"OrderValidityStartDate"`
-	OrderValidityEndDate                    *string  `json:"OrderValidityEndDate"`
+	OrderVaridityStartDate                  *string  `json:"OrderVaridityStartDate"`
+	OrderVaridityEndDate                    *string  `json:"OrderVaridityEndDate"`
 	InvoicePeriodStartDate                  *string  `json:"InvoicePeriodStartDate"`
 	InvoicePeriodEndDate                    *string  `json:"InvoicePeriodEndDate"`
 	DeliveryDocument                        *int     `json:"DeliveryDocument"`
@@ -185,13 +174,15 @@ type Item struct {
 	CountryOfOrigin                         *string  `json:"CountryOfOrigin"`
 	CountryOfOriginLanguage                 *string  `json:"CountryOfOriginLanguage"`
 	ItemPaymentRequisitionIsCreated         *bool    `json:"ItemPaymentRequisitionIsCreated"`
+	ItemIsCleared                           *bool    `json:"ItemIsCleared"`
 	ItemPaymentBlockStatus                  *bool    `json:"ItemPaymentBlockStatus"`
+	IsCancelled                             *bool    `json:"IsCancelled"`
 }
 
 type ItemPricingElement struct {
-	InvoiceDocument            *int     `json:"InvoiceDocument"`
-	InvoiceDocumentItem        *int     `json:"InvoiceDocumentItem"`
-	PricingProcedureCounter    *int     `json:"PricingProcedureCounter"`
+	InvoiceDocument            int      `json:"InvoiceDocument"`
+	InvoiceDocumentItem        int      `json:"InvoiceDocumentItem"`
+	PricingProcedureCounter    int      `json:"PricingProcedureCounter"`
 	ConditionRecord            *int     `json:"ConditionRecord"`
 	ConditionSequentialNumber  *int     `json:"ConditionSequentialNumber"`
 	ConditionType              *string  `json:"ConditionType"`

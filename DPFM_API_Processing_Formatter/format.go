@@ -1,13 +1,17 @@
 package dpfm_api_processing_formatter
 
-func ConvertToHeaderUpdates(headerUpdates HeaderUpdates) *HeaderUpdates {
-	data := headerUpdates
+import (
+	dpfm_api_input_reader "data-platform-api-invoice-document-creates-rmq-kube/DPFM_API_Input_Reader"
+)
+
+func ConvertToHeaderUpdates(header dpfm_api_input_reader.Header) *HeaderUpdates {
+	data := header
 
 	return &HeaderUpdates{
-		InvoiceDocumentDate:               data.InvoiceDocumentDate,
-		InvoiceDocumentTime:               data.InvoiceDocumentTime,
-		InvoicePeriodStartDate:            data.InvoicePeriodStartDate,
-		InvoicePeriodEndDate:              data.InvoicePeriodEndDate,
+		InvoiceDocumentDate:               *data.InvoiceDocumentDate,
+		InvoiceDocumentTime:               *data.InvoiceDocumentTime,
+		InvoicePeriodStartDate:            *data.InvoicePeriodStartDate,
+		InvoicePeriodEndDate:              *data.InvoicePeriodEndDate,
 		AccountingPostingDate:             data.AccountingPostingDate,
 		HeaderBillingIsConfirmed:          data.HeaderBillingIsConfirmed,
 		TotalNetAmount:                    data.TotalNetAmount,
@@ -20,13 +24,14 @@ func ConvertToHeaderUpdates(headerUpdates HeaderUpdates) *HeaderUpdates {
 		PaymentMethod:                     data.PaymentMethod,
 		ExternalReferenceDocument:         data.ExternalReferenceDocument,
 		DocumentHeaderText:                data.DocumentHeaderText,
+		HeaderIsCleared:                   data.HeaderIsCleared,
 		HeaderPaymentBlockStatus:          data.HeaderPaymentBlockStatus,
 		HeaderPaymentRequisitionIsCreated: data.HeaderPaymentRequisitionIsCreated,
 	}
 }
 
-func ConvertToItemUpdates(itemUpdates ItemUpdates) *ItemUpdates {
-	data := itemUpdates
+func ConvertToItemUpdates(item dpfm_api_input_reader.Item) *ItemUpdates {
+	data := item
 
 	return &ItemUpdates{
 		ItemBillingIsConfirmed:        data.ItemBillingIsConfirmed,
@@ -35,6 +40,7 @@ func ConvertToItemUpdates(itemUpdates ItemUpdates) *ItemUpdates {
 		GrossAmount:                   data.GrossAmount,
 		ExternalReferenceDocument:     data.ExternalReferenceDocument,
 		ExternalReferenceDocumentItem: data.ExternalReferenceDocumentItem,
+		ItemIsCleared:                 data.ItemIsCleared,
 		ItemPaymentBlockStatus:        data.ItemPaymentBlockStatus,
 	}
 }
@@ -46,8 +52,9 @@ func ConvertToPartnerUpdates(partnerUpdates PartnerUpdates) *PartnerUpdates {
 		ExternalDocumentID: data.ExternalDocumentID,
 	}
 }
-func ConvertToAddressUpdates(addressUpdates AddressUpdates) *AddressUpdates {
-	data := addressUpdates
+
+func ConvertToAddressUpdates(address dpfm_api_input_reader.Address) *AddressUpdates {
+	data := address
 
 	return &AddressUpdates{
 		PostalCode:  data.PostalCode,

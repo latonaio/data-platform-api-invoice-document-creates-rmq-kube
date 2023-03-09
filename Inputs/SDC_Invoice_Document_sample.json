@@ -12,18 +12,19 @@
 		"InvoiceDocumentDate": ["", ""],
 		"InvoiceDocumentDateTo": "",
 		"InvoiceDocumentDateFrom": "",
-		"BillFromParty": [401, null],
-		"BillFromPartyTo": null,
-		"BillFromPartyFrom": null,
-		"BillToParty": [301, null],
-		"BillToPartyTo": null,
-		"BillToPartyFrom": null,
+		"BillFromParty": [201, null],
+		"BillFromPartyTo": 201,
+		"BillFromPartyFrom": 201,
+		"BillToParty": [101, null],
+		"BillToPartyTo": 101,
+		"BillToPartyFrom": 101,
 		"ConfirmedDeliveryDate": ["", ""],
-		"ConfirmedDeliveryDateTo": "",
-		"ConfirmedDeliveryDateFrom": "",
+		"ConfirmedDeliveryDateTo": "2023-02-12",
+		"ConfirmedDeliveryDateFrom": "2023-02-10",
 		"ActualGoodsIssueDate": ["", ""],
-		"ActualGoodsIssueDateTo": "",
-		"ActualGoodsIssueDateFrom": ""
+		"ActualGoodsIssueDateTo": "2023-01-20",
+		"ActualGoodsIssueDateFrom": "2023-01-10",
+		"ReferenceDocument": 80000013
 	},
 	"InvoiceDocument": {
 		"InvoiceDocument": 110,
@@ -40,11 +41,11 @@
 		"BillFromCountry": "",
 		"Payer": 501,
 		"Payee": 601,
-		"InvoiceDocumentDate": "",
-		"InvoiceDocumentTime": "",
+		"InvoiceDocumentDate": "2023-02-15",
+		"InvoiceDocumentTime": "12:00:00",
 		"InvoicePeriodStartDate": "",
 		"InvoicePeriodEndDate": "",
-		"AccountingPostingDate": "",
+		"AccountingPostingDate": "2023-01-01",
 		"IsExportImport": null,
 		"HeaderBillingIsConfirmed": null,
 		"HeaderBillingConfStatus": "",
@@ -53,17 +54,17 @@
 		"TotalGrossAmount": null,
 		"TransactionCurrency": "",
 		"Incoterms": "",
-		"PaymentTerms": "",
-		"DueCalculationBaseDate": "",
+		"PaymentTerms": "0001",
+		"DueCalculationBaseDate": "2023-01-01",
 		"PaymentDueDate": "",
 		"NetPaymentDays": null,
-		"PaymentMethod": "",
+		"PaymentMethod": "T",
 		"ExternalReferenceDocument": "",
 		"DocumentHeaderText": "Test",
+		"HeaderIsCleared": null,
 		"HeaderPaymentBlockStatus": null,
 		"HeaderPaymentRequisitionIsCreated": null,
-		"InvoiceDocumentIsCancelled": null,
-		"CancelledInvoiceDocument": null,
+		"IsCancelled": null,
 		"HeaderDoc": [
 			{
 				"DocType": "",
@@ -77,16 +78,16 @@
 		],
 		"Address": [
 			{
-			"AddressID": null,
-			"PostalCode": "",
-			"LocalRegion": "",
-			"Country": "",
-			"District": "",
-			"StreetName": "",
-			"CityName": "",
-			"Building": "",
-			"Floor": null,
-			"Room": null
+				"AddressID": null,
+				"PostalCode": "",
+				"LocalRegion": "",
+				"Country": "",
+				"District": "",
+				"StreetName": "",
+				"CityName": "",
+				"Building": "",
+				"Floor": null,
+				"Room": null
 			}
 		],
 		"InvoiceDocumentItem": [
@@ -162,22 +163,26 @@
 				"CountryOfOrigin": "",
 				"CountryOfOriginLanguage": "",
 				"ItemPaymentRequisitionIsCreated": null,
+				"ItemIsCleared": null,
 				"ItemPaymentBlockStatus": null,
-				"ItemPricingElement": {
-					"PricingProcedureCounter": null,
-					"ConditionRecord": null,
-					"ConditionSequentialNumber": null,
-					"ConditionType": "",
-					"PricingDate": "",
-					"ConditionRateValue": null,
-					"ConditionCurrency": "",
-					"ConditionQuantity": null,
-					"ConditionQuantityUnit": "",
-					"TaxCode": "",
-					"ConditionAmount": null,
-					"TransactionCurrency": "",
-					"ConditionIsManuallyChanged": null
-				}
+				"IsCancelled": null,
+				"ItemPricingElement": [
+					{
+						"PricingProcedureCounter": null,
+						"ConditionRecord": null,
+						"ConditionSequentialNumber": null,
+						"ConditionType": "",
+						"PricingDate": "",
+						"ConditionRateValue": null,
+						"ConditionCurrency": "",
+						"ConditionQuantity": null,
+						"ConditionQuantityUnit": "",
+						"TaxCode": "",
+						"ConditionAmount": null,
+						"TransactionCurrency": "",
+						"ConditionIsManuallyChanged": null
+					}
+				]
 			}
 		],
 		"Partner": [
@@ -208,10 +213,7 @@
 		]
 	},
 	"api_schema": "DPFMInvoiceDocumentCreates",
-	"accepter": [
-		"Header",
-		"HeaderPartner"
-	],
+	"accepter": ["All"],
 	"invoice_document_id": null,
 	"deleted": false
 }

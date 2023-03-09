@@ -1,9 +1,9 @@
 package requests
 
 type HeaderPartner struct {
-	InvoiceDocument         *int    `json:"InvoiceDocument"`
-	PartnerFunction         *string `json:"PartnerFunction"`
-	BusinessPartner         *int    `json:"BusinessPartner"`
+	InvoiceDocument         int     `json:"InvoiceDocument"`
+	PartnerFunction         string  `json:"PartnerFunction"`
+	BusinessPartner         int     `json:"BusinessPartner"`
 	BusinessPartnerFullName *string `json:"BusinessPartnerFullName"`
 	BusinessPartnerName     *string `json:"BusinessPartnerName"`
 	Organization            *string `json:"Organization"`

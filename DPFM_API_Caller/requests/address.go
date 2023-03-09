@@ -1,8 +1,8 @@
 package requests
 
 type Address struct {
-	InvoiceDocument *int    `json:"InvoiceDocument"`
-	AddressID       *int    `json:"AddressID"`
+	InvoiceDocument int     `json:"InvoiceDocument"`
+	AddressID       int     `json:"AddressID"`
 	PostalCode      *string `json:"PostalCode"`
 	LocalRegion     *string `json:"LocalRegion"`
 	Country         *string `json:"Country"`
