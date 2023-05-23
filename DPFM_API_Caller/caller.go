@@ -57,7 +57,7 @@ func (c *DPFMAPICaller) AsyncInvoiceDocumentCreates(
 
 	// 他PODへ問い合わせ
 	wg.Add(1)
-	go c.exconfProcess(&mtx, &wg, exconfFin, input, output, &exconfAllExist, &errs, log)
+	go c.exconfProcess(&mtx, &wg, exconfFin, input, output, &exconfAllExist, accepter, &errs, log)
 	if input.APIType == "creates" {
 		go c.subfuncProcess(&mtx, &wg, subFuncFin, input, output, subfuncSDC, accepter, &errs, log)
 	} else if input.APIType == "updates" {
@@ -72,14 +72,21 @@ func (c *DPFMAPICaller) AsyncInvoiceDocumentCreates(
 		if err != nil {
 			errs = append(errs, err)
 		}
-		return subfuncSDC, errs
+		return nil, errs
 	}
 	if !exconfAllExist {
 		mtx.Lock()
-		return subfuncSDC, nil
+		return nil, nil
 	}
 	wg.Wait()
-	for range accepter {
+
+	var loopCnt int
+	if input.APIType == "creates" {
+		loopCnt = len(accepter)
+	} else if input.APIType == "updates" {
+		loopCnt = 1
+	}
+	for i := 0; i < loopCnt; i++ {
 		if err := c.finWait(&mtx, subFuncFin, ticker); err != nil || len(errs) != 0 {
 			if err != nil {
 				errs = append(errs, err)
@@ -106,12 +113,13 @@ func (c *DPFMAPICaller) exconfProcess(
 	input *dpfm_api_input_reader.SDC,
 	output *dpfm_api_output_formatter.SDC,
 	exconfAllExist *bool,
+	accepter []string,
 	errs *[]error,
 	log *logger.Logger,
 ) {
 	defer wg.Done()
 	var e []error
-	*exconfAllExist, e = c.configure.Conf(input, output, log)
+	*exconfAllExist, e = c.configure.Conf(input, output, accepter, log)
 	if len(e) != 0 {
 		mtx.Lock()
 		*errs = append(*errs, e...)

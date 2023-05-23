@@ -16,11 +16,7 @@ func (c *ExistenceConf) supplyChainRelationshipGeneralExistenceConf(mapper ExCon
 	headers = append(headers, input.Header)
 	for _, header := range headers {
 		for _, item := range header.Item {
-			supplyChainRelationshipID, buyer, seller, err := getSupplyChainRelationshipGeneralExistenceConfKey(mapper, &header, &item, exconfErrMsg)
-			if err != nil {
-				*errs = append(*errs, err)
-				return
-			}
+			supplyChainRelationshipID, buyer, seller := getSupplyChainRelationshipGeneralExistenceConfKey(mapper, &header, &item, exconfErrMsg)
 			queueName, err := getQueueName(mapper)
 			if err != nil {
 				*errs = append(*errs, err)
@@ -29,6 +25,10 @@ func (c *ExistenceConf) supplyChainRelationshipGeneralExistenceConf(mapper ExCon
 			wg2.Add(1)
 			exReqTimes++
 			go func() {
+				if isZero(supplyChainRelationshipID) || isZero(buyer) || isZero(seller) {
+					wg2.Done()
+					return
+				}
 				res, err := c.supplyChainRelationshipGeneralExistenceConfRequest(supplyChainRelationshipID, buyer, seller, queueName, input, existenceMap, mtx, log)
 				if err != nil {
 					mtx.Lock()
@@ -83,20 +83,20 @@ func (c *ExistenceConf) supplyChainRelationshipGeneralExistenceConfRequest(suppl
 	return "", nil
 }
 
-func getSupplyChainRelationshipGeneralExistenceConfKey(mapper ExConfMapper, header *dpfm_api_input_reader.Header, item *dpfm_api_input_reader.Item, exconfErrMsg *string) (int, int, int, error) {
+func getSupplyChainRelationshipGeneralExistenceConfKey(mapper ExConfMapper, header *dpfm_api_input_reader.Header, item *dpfm_api_input_reader.Item, exconfErrMsg *string) (int, int, int) {
 	var supplyChainRelationshipID, buyer, seller int
-	var err error
 
 	if header.SupplyChainRelationshipID == nil ||
 		item.Buyer == nil ||
 		item.Seller == nil {
-		err = xerrors.Errorf("cannot specify null keys")
-		return 0, 0, 0, err
+		supplyChainRelationshipID = 0
+		buyer = 0
+		seller = 0
+	} else {
+		supplyChainRelationshipID = *header.SupplyChainRelationshipID
+		buyer = *item.Buyer
+		seller = *item.Seller
 	}
 
-	supplyChainRelationshipID = *header.SupplyChainRelationshipID
-	buyer = *item.Buyer
-	seller = *item.Seller
-
-	return supplyChainRelationshipID, buyer, seller, nil
+	return supplyChainRelationshipID, buyer, seller
 }

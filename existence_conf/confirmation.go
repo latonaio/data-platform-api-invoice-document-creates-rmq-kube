@@ -34,7 +34,7 @@ func NewExistenceConf(ctx context.Context, c *config.Conf, rmq *rabbitmq.Rabbitm
 }
 
 // Confirm returns existenceMap, allExist, err
-func (c *ExistenceConf) Conf(data *dpfm_api_input_reader.SDC, ssdc *dpfm_api_output_formatter.SDC, l *logger.Logger) (allExist bool, errs []error) {
+func (c *ExistenceConf) Conf(data *dpfm_api_input_reader.SDC, ssdc *dpfm_api_output_formatter.SDC, accepter []string, l *logger.Logger) (allExist bool, errs []error) {
 	var resMsg string
 	existenceMap := make([]bool, 0, 12)
 	wg := sync.WaitGroup{}
@@ -52,7 +52,14 @@ func (c *ExistenceConf) Conf(data *dpfm_api_input_reader.SDC, ssdc *dpfm_api_out
 			continue
 		}
 		tabletag := *v.Tabletag
+		apiName := v.APIName
+		if !contains(accepter, apiName) {
+			continue
+		}
 		switch tabletag {
+		case "Incoterms":
+			wg.Add(1)
+			go c.headerIncotermsExistenceConf(v, data, &existenceMap, &resMsg, &errs, mtx, &wg, l)
 		case "PaymentMethod":
 			wg.Add(1)
 			go c.headerPaymentMethodExistenceConf(v, data, &existenceMap, &resMsg, &errs, mtx, &wg, l)
@@ -116,7 +123,7 @@ func (c *ExistenceConf) getExConfMapper(serviceLabel string) (*[]ExConfMapper, e
 			&data.ExConfProgramFileName,
 			&data.Tabletag,
 			&data.TableConfirmed,
-			&data.ExConfAPITyp,
+			&data.ExConfAPIType,
 		)
 		if err != nil {
 			return nil, err
@@ -199,4 +206,18 @@ func getQueueName(mapper ExConfMapper) (string, error) {
 	queueName := *mapper.ExConfAPIQueueName
 
 	return queueName, nil
+}
+
+func contains(slice []string, target string) bool {
+	for _, v := range slice {
+		if v == target {
+			return true
+		}
+	}
+	return false
+}
+
+func isZero[T comparable](obj T) bool {
+	var zero T
+	return obj == zero
 }

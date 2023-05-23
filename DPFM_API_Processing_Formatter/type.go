@@ -1,10 +1,11 @@
 package dpfm_api_processing_formatter
 
 type HeaderUpdates struct {
-	InvoiceDocumentDate               string   `json:"InvoiceDocumentDate"`
-	InvoiceDocumentTime               string   `json:"InvoiceDocumentTime"`
-	InvoicePeriodStartDate            string   `json:"InvoicePeriodStartDate"`
-	InvoicePeriodEndDate              string   `json:"InvoicePeriodEndDate"`
+	InvoiceDocument                   int      `json:"InvoiceDocument"`
+	InvoiceDocumentDate               *string  `json:"InvoiceDocumentDate"`
+	InvoiceDocumentTime               *string  `json:"InvoiceDocumentTime"`
+	InvoicePeriodStartDate            *string  `json:"InvoicePeriodStartDate"`
+	InvoicePeriodEndDate              *string  `json:"InvoicePeriodEndDate"`
 	AccountingPostingDate             *string  `json:"AccountingPostingDate"`
 	HeaderBillingIsConfirmed          *bool    `json:"HeaderBillingIsConfirmed"`
 	TotalNetAmount                    *float32 `json:"TotalNetAmount"`
@@ -22,23 +23,9 @@ type HeaderUpdates struct {
 	HeaderPaymentRequisitionIsCreated *bool    `json:"HeaderPaymentRequisitionIsCreated"`
 }
 
-type PartnerUpdates struct {
-	ExternalDocumentID *string `json:"ExternalDocumentID"`
-}
-
-type AddressUpdates struct {
-	PostalCode  *string `json:"PostalCode"`
-	LocalRegion *string `json:"LocalRegion"`
-	Country     *string `json:"Country"`
-	District    *string `json:"District"`
-	StreetName  *string `json:"StreetName"`
-	CityName    *string `json:"CityName"`
-	Building    *string `json:"Building"`
-	Floor       *int    `json:"Floor"`
-	Room        *int    `json:"Room"`
-}
-
 type ItemUpdates struct {
+	InvoiceDocument               int      `json:"InvoiceDocument"`
+	InvoiceDocumentItem           int      `json:"InvoiceDocumentItem"`
 	ItemBillingIsConfirmed        *bool    `json:"ItemBillingIsConfirmed"`
 	NetAmount                     *float32 `json:"NetAmount"`
 	TaxAmount                     *float32 `json:"TaxAmount"`
@@ -47,4 +34,25 @@ type ItemUpdates struct {
 	ExternalReferenceDocumentItem *string  `json:"ExternalReferenceDocumentItem"`
 	ItemIsCleared                 *bool    `json:"ItemIsCleared"`
 	ItemPaymentBlockStatus        *bool    `json:"ItemPaymentBlockStatus"`
+}
+
+type PartnerUpdates struct {
+	InvoiceDocument    int     `json:"InvoiceDocument"`
+	PartnerFunction    string  `json:"PartnerFunction"`
+	BusinessPartner    int     `json:"BusinessPartner"`
+	ExternalDocumentID *string `json:"ExternalDocumentID"`
+}
+
+type AddressUpdates struct {
+	InvoiceDocument int     `json:"InvoiceDocument"`
+	AddressID       int     `json:"AddressID"`
+	PostalCode      *string `json:"PostalCode"`
+	LocalRegion     *string `json:"LocalRegion"`
+	Country         *string `json:"Country"`
+	District        *string `json:"District"`
+	StreetName      *string `json:"StreetName"`
+	CityName        *string `json:"CityName"`
+	Building        *string `json:"Building"`
+	Floor           *int    `json:"Floor"`
+	Room            *int    `json:"Room"`
 }

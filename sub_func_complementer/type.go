@@ -127,7 +127,7 @@ type Item struct {
 	DeliverToPlantStorageLocation           *string  `json:"DeliverToPlantStorageLocation"`
 	DeliverFromPlant                        *string  `json:"DeliverFromPlant"`
 	DeliverFromPlantStorageLocation         *string  `json:"DeliverFromPlantStorageLocation"`
-	ProductionPlantBusinessPartner          *string  `json:"ProductionPlantBusinessPartner"`
+	ProductionPlantBusinessPartner          *int     `json:"ProductionPlantBusinessPartner"`
 	ProductionPlant                         *string  `json:"ProductionPlant"`
 	ProductionPlantStorageLocation          *string  `json:"ProductionPlantStorageLocation"`
 	ServicesRenderedDate                    *string  `json:"ServicesRenderedDate"`
@@ -195,4 +195,11 @@ type ItemPricingElement struct {
 	ConditionAmount            *float32 `json:"ConditionAmount"`
 	TransactionCurrency        *string  `json:"TransactionCurrency"`
 	ConditionIsManuallyChanged *bool    `json:"ConditionIsManuallyChanged"`
+}
+
+type NumberRange struct {
+	NumberRangeID            string `json:"NumberRangeID"`
+	ServiceLabel             string `json:"ServiceLabel"`
+	FieldNameWithNumberRange string `json:"FieldNameWithNumberRange"`
+	LatestNumber             int    `json:"LatestNumber"`
 }

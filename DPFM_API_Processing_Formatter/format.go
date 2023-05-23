@@ -8,10 +8,11 @@ func ConvertToHeaderUpdates(header dpfm_api_input_reader.Header) *HeaderUpdates 
 	data := header
 
 	return &HeaderUpdates{
-		InvoiceDocumentDate:               *data.InvoiceDocumentDate,
-		InvoiceDocumentTime:               *data.InvoiceDocumentTime,
-		InvoicePeriodStartDate:            *data.InvoicePeriodStartDate,
-		InvoicePeriodEndDate:              *data.InvoicePeriodEndDate,
+		InvoiceDocument:                   data.InvoiceDocument,
+		InvoiceDocumentDate:               data.InvoiceDocumentDate,
+		InvoiceDocumentTime:               data.InvoiceDocumentTime,
+		InvoicePeriodStartDate:            data.InvoicePeriodStartDate,
+		InvoicePeriodEndDate:              data.InvoicePeriodEndDate,
 		AccountingPostingDate:             data.AccountingPostingDate,
 		HeaderBillingIsConfirmed:          data.HeaderBillingIsConfirmed,
 		TotalNetAmount:                    data.TotalNetAmount,
@@ -30,10 +31,13 @@ func ConvertToHeaderUpdates(header dpfm_api_input_reader.Header) *HeaderUpdates 
 	}
 }
 
-func ConvertToItemUpdates(item dpfm_api_input_reader.Item) *ItemUpdates {
+func ConvertToItemUpdates(header dpfm_api_input_reader.Header, item dpfm_api_input_reader.Item) *ItemUpdates {
+	dataHeader := header
 	data := item
 
 	return &ItemUpdates{
+		InvoiceDocument:               dataHeader.InvoiceDocument,
+		InvoiceDocumentItem:           data.InvoiceDocumentItem,
 		ItemBillingIsConfirmed:        data.ItemBillingIsConfirmed,
 		NetAmount:                     data.NetAmount,
 		TaxAmount:                     data.TaxAmount,
@@ -45,26 +49,33 @@ func ConvertToItemUpdates(item dpfm_api_input_reader.Item) *ItemUpdates {
 	}
 }
 
-func ConvertToPartnerUpdates(partnerUpdates PartnerUpdates) *PartnerUpdates {
-	data := partnerUpdates
+func ConvertToPartnerUpdates(header dpfm_api_input_reader.Header, partner dpfm_api_input_reader.Partner) *PartnerUpdates {
+	dataHeader := header
+	data := partner
 
 	return &PartnerUpdates{
+		InvoiceDocument:    dataHeader.InvoiceDocument,
+		PartnerFunction:    data.PartnerFunction,
+		BusinessPartner:    data.BusinessPartner,
 		ExternalDocumentID: data.ExternalDocumentID,
 	}
 }
 
-func ConvertToAddressUpdates(address dpfm_api_input_reader.Address) *AddressUpdates {
+func ConvertToAddressUpdates(header dpfm_api_input_reader.Header, address dpfm_api_input_reader.Address) *AddressUpdates {
+	dataHeader := header
 	data := address
 
 	return &AddressUpdates{
-		PostalCode:  data.PostalCode,
-		LocalRegion: data.LocalRegion,
-		Country:     data.Country,
-		District:    data.District,
-		StreetName:  data.StreetName,
-		CityName:    data.CityName,
-		Building:    data.Building,
-		Floor:       data.Floor,
-		Room:        data.Room,
+		InvoiceDocument: dataHeader.InvoiceDocument,
+		AddressID:       data.AddressID,
+		PostalCode:      data.PostalCode,
+		LocalRegion:     data.LocalRegion,
+		Country:         data.Country,
+		District:        data.District,
+		StreetName:      data.StreetName,
+		CityName:        data.CityName,
+		Building:        data.Building,
+		Floor:           data.Floor,
+		Room:            data.Room,
 	}
 }

@@ -40,7 +40,7 @@ func main() {
 	defer rmq.Stop()
 
 	confirmor := existence_conf.NewExistenceConf(ctx, conf, rmq, db)
-	complementer := sub_func_complementer.NewSubFuncComplementer(ctx, conf, rmq)
+	complementer := sub_func_complementer.NewSubFuncComplementer(ctx, conf, rmq, db)
 	caller := dpfm_api_caller.NewDPFMAPICaller(conf, rmq, confirmor, complementer)
 
 	for msg := range iter {
@@ -95,11 +95,13 @@ func callProcess(rmq *rabbitmq.RabbitmqClient, caller *dpfm_api_caller.DPFMAPICa
 		output.APIProcessingResult = getBoolPtr(false)
 		output.APIProcessingError = errs[0].Error()
 		output.Message = res
+		output.ConnectionKey = "response"
 		rmq.Send(conf.RMQ.QueueToResponse(), output)
 		return errs[0]
 	}
 	output.APIProcessingResult = getBoolPtr(true)
 	output.Message = res
+	output.ConnectionKey = "response"
 
 	l.JsonParseOut(output)
 	rmq.Send(conf.RMQ.QueueToResponse(), output)

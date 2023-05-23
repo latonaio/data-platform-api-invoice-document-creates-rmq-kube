@@ -71,24 +71,23 @@ type SDC struct {
 }
 
 type InputParameters struct {
-	InvoiceDocumentDate       *[]*string `json:"InvoiceDocumentDate"`
-	InvoiceDocumentDateTo     *string    `json:"InvoiceDocumentDateTo"`
-	InvoiceDocumentDateFrom   *string    `json:"InvoiceDocumentDateFrom"`
+	InvoiceDocumentDate       *string    `json:"InvoiceDocumentDate"`
 	BillFromParty             *[]*int    `json:"BillFromParty"`
 	BillFromPartyTo           *int       `json:"BillFromPartyTo"`
 	BillFromPartyFrom         *int       `json:"BillFromPartyFrom"`
 	BillToParty               *[]*int    `json:"BillToParty"`
 	BillToPartyTo             *int       `json:"BillToPartyTo"`
-	BillToPartyfrom           *int       `json:"BillToPartyfrom"`
+	BillToPartyFrom           *int       `json:"BillToPartyFrom"`
 	ConfirmedDeliveryDate     *[]*string `json:"ConfirmedDeliveryDate"`
 	ConfirmedDeliveryDateTo   *string    `json:"ConfirmedDeliveryDateTo"`
 	ConfirmedDeliveryDateFrom *string    `json:"ConfirmedDeliveryDateFrom"`
 	ActualGoodsIssueDate      *[]*string `json:"ActualGoodsIssueDate"`
 	ActualGoodsIssueDateTo    *string    `json:"ActualGoodsIssueDateTo"`
 	ActualGoodsIssueDateFrom  *string    `json:"ActualGoodsIssueDateFrom"`
-	ActualGoodsIssueTime      *[]string  `json:"ActualGoodsIssueTime"`
-	ActualGoodsIssueTimeTo    string     `json:"ActualGoodsIssueTimeTo"`
-	ActualGoodsIssueTimeFrom  string     `json:"ActualGoodsIssueTimeFrom"`
+	ActualGoodsIssueTime      *[]*string `json:"ActualGoodsIssueTime"`
+	ActualGoodsIssueTimeTo    *string    `json:"ActualGoodsIssueTimeTo"`
+	ActualGoodsIssueTimeFrom  *string    `json:"ActualGoodsIssueTimeFrom"`
+	ReferenceDocument         *int       `json:"ReferenceDocument"`
 }
 
 type Header struct {
@@ -130,49 +129,10 @@ type Header struct {
 	HeaderPaymentBlockStatus          *bool       `json:"HeaderPaymentBlockStatus"`
 	HeaderPaymentRequisitionIsCreated *bool       `json:"HeaderPaymentRequisitionIsCreated"`
 	IsCancelled                       *bool       `json:"IsCancelled"`
-	Partner                           []Partner   `json:"Partner"`
+	Item                              []Item      `json:"Item"`
 	HeaderDoc                         []HeaderDoc `json:"HeaderDoc"`
-	Item                              []Item      `json:"InvoiceDocumentItem"`
+	Partner                           []Partner   `json:"Partner"`
 	Address                           []Address   `json:"Address"`
-}
-
-type Partner struct {
-	InvoiceDocument         int     `json:"InvoiceDocument"`
-	PartnerFunction         string  `json:"PartnerFunction"`
-	BusinessPartner         int     `json:"BusinessPartner"`
-	BusinessPartnerFullName *string `json:"BusinessPartnerFullName"`
-	BusinessPartnerName     *string `json:"BusinessPartnerName"`
-	Organization            *string `json:"Organization"`
-	Country                 *string `json:"Country"`
-	Language                *string `json:"Language"`
-	Currency                *string `json:"Currency"`
-	ExternalDocumentID      *string `json:"ExternalDocumentID"`
-	AddressID               *int    `json:"AddressID"`
-}
-
-type HeaderDoc struct {
-	InvoiceDocument          int     `json:"InvoiceDocument"`
-	DocType                  string  `json:"DocType"`
-	DocVersionID             int     `json:"DocVersionID"`
-	DocID                    string  `json:"DocID"`
-	FileExtension            *string `json:"FileExtension"`
-	FileName                 *string `json:"FileName"`
-	FilePath                 *string `json:"FilePath"`
-	DocIssuerBusinessPartner *int    `json:"DocIssuerBusinessPartner"`
-}
-
-type Address struct {
-	InvoiceDocument int     `json:"InvoiceDocument"`
-	AddressID       int     `json:"AddressID"`
-	PostalCode      *string `json:"PostalCode"`
-	LocalRegion     *string `json:"LocalRegion"`
-	Country         *string `json:"Country"`
-	District        *string `json:"District"`
-	StreetName      *string `json:"StreetName"`
-	CityName        *string `json:"CityName"`
-	Building        *string `json:"Building"`
-	Floor           *int    `json:"Floor"`
-	Room            *int    `json:"Room"`
 }
 
 type Item struct {
@@ -201,7 +161,7 @@ type Item struct {
 	DeliverToPlantStorageLocation           *string              `json:"DeliverToPlantStorageLocation"`
 	DeliverFromPlant                        *string              `json:"DeliverFromPlant"`
 	DeliverFromPlantStorageLocation         *string              `json:"DeliverFromPlantStorageLocation"`
-	ProductionPlantBusinessPartner          *string              `json:"ProductionPlantBusinessPartner"`
+	ProductionPlantBusinessPartner          *int                 `json:"ProductionPlantBusinessPartner"`
 	ProductionPlant                         *string              `json:"ProductionPlant"`
 	ProductionPlantStorageLocation          *string              `json:"ProductionPlantStorageLocation"`
 	ServicesRenderedDate                    *string              `json:"ServicesRenderedDate"`
@@ -270,4 +230,43 @@ type ItemPricingElement struct {
 	ConditionAmount            *float32 `json:"ConditionAmount"`
 	TransactionCurrency        *string  `json:"TransactionCurrency"`
 	ConditionIsManuallyChanged *bool    `json:"ConditionIsManuallyChanged"`
+}
+
+type HeaderDoc struct {
+	InvoiceDocument          int     `json:"InvoiceDocument"`
+	DocType                  string  `json:"DocType"`
+	DocVersionID             int     `json:"DocVersionID"`
+	DocID                    string  `json:"DocID"`
+	FileExtension            *string `json:"FileExtension"`
+	FileName                 *string `json:"FileName"`
+	FilePath                 *string `json:"FilePath"`
+	DocIssuerBusinessPartner *int    `json:"DocIssuerBusinessPartner"`
+}
+
+type Partner struct {
+	InvoiceDocument         int     `json:"InvoiceDocument"`
+	PartnerFunction         string  `json:"PartnerFunction"`
+	BusinessPartner         int     `json:"BusinessPartner"`
+	BusinessPartnerFullName *string `json:"BusinessPartnerFullName"`
+	BusinessPartnerName     *string `json:"BusinessPartnerName"`
+	Organization            *string `json:"Organization"`
+	Country                 *string `json:"Country"`
+	Language                *string `json:"Language"`
+	Currency                *string `json:"Currency"`
+	ExternalDocumentID      *string `json:"ExternalDocumentID"`
+	AddressID               *int    `json:"AddressID"`
+}
+
+type Address struct {
+	InvoiceDocument int     `json:"InvoiceDocument"`
+	AddressID       int     `json:"AddressID"`
+	PostalCode      *string `json:"PostalCode"`
+	LocalRegion     *string `json:"LocalRegion"`
+	Country         *string `json:"Country"`
+	District        *string `json:"District"`
+	StreetName      *string `json:"StreetName"`
+	CityName        *string `json:"CityName"`
+	Building        *string `json:"Building"`
+	Floor           *int    `json:"Floor"`
+	Room            *int    `json:"Room"`
 }

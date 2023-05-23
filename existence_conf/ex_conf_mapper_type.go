@@ -11,5 +11,5 @@ type ExConfMapper struct {
 	ExConfProgramFileName *string `json:"ExConfProgramFileName"`
 	Tabletag              *string `json:"Tabletag"`
 	TableConfirmed        *string `json:"TableConfirmed"`
-	ExConfAPITyp          *string `json:"ExConfAPITyp"`
+	ExConfAPIType         *string `json:"ExConfAPIType"`
 }

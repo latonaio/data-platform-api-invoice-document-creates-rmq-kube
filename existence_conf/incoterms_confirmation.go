@@ -8,14 +8,15 @@ import (
 	"golang.org/x/xerrors"
 )
 
-func (c *ExistenceConf) headerPaymentMethodExistenceConf(mapper ExConfMapper, input *dpfm_api_input_reader.SDC, existenceMap *[]bool, exconfErrMsg *string, errs *[]error, mtx *sync.Mutex, wg *sync.WaitGroup, log *logger.Logger) {
+func (c *ExistenceConf) headerIncotermsExistenceConf(mapper ExConfMapper, input *dpfm_api_input_reader.SDC, existenceMap *[]bool, exconfErrMsg *string, errs *[]error, mtx *sync.Mutex, wg *sync.WaitGroup, log *logger.Logger) {
 	defer wg.Done()
 	wg2 := sync.WaitGroup{}
 	exReqTimes := 0
+
 	headers := make([]dpfm_api_input_reader.Header, 0, 1)
 	headers = append(headers, input.Header)
 	for _, header := range headers {
-		paymentMethod := getHeaderPaymentMethodExistenceConfKey(mapper, &header, exconfErrMsg)
+		incoterms := getHeaderIncotermsExistenceConfKey(mapper, &header, exconfErrMsg)
 		queueName, err := getQueueName(mapper)
 		if err != nil {
 			*errs = append(*errs, err)
@@ -24,11 +25,11 @@ func (c *ExistenceConf) headerPaymentMethodExistenceConf(mapper ExConfMapper, in
 		wg2.Add(1)
 		exReqTimes++
 		go func() {
-			if isZero(paymentMethod) {
+			if isZero(incoterms) {
 				wg2.Done()
 				return
 			}
-			res, err := c.paymentMethodExistenceConfRequest(paymentMethod, queueName, input, existenceMap, mtx, log)
+			res, err := c.incotermsExistenceConfRequest(incoterms, queueName, input, existenceMap, mtx, log)
 			if err != nil {
 				mtx.Lock()
 				*errs = append(*errs, err)
@@ -46,9 +47,9 @@ func (c *ExistenceConf) headerPaymentMethodExistenceConf(mapper ExConfMapper, in
 	}
 }
 
-func (c *ExistenceConf) paymentMethodExistenceConfRequest(paymentMethod string, queueName string, input *dpfm_api_input_reader.SDC, existenceMap *[]bool, mtx *sync.Mutex, log *logger.Logger) (string, error) {
+func (c *ExistenceConf) incotermsExistenceConfRequest(incoterms string, queueName string, input *dpfm_api_input_reader.SDC, existenceMap *[]bool, mtx *sync.Mutex, log *logger.Logger) (string, error) {
 	keys := newResult(map[string]interface{}{
-		"PaymentMethod": paymentMethod,
+		"Incoterms": incoterms,
 	})
 	exist := false
 	defer func() {
@@ -61,7 +62,7 @@ func (c *ExistenceConf) paymentMethodExistenceConfRequest(paymentMethod string, 
 	if err != nil {
 		return "", xerrors.Errorf("request create error: %w", err)
 	}
-	req.PaymentMethodReturn.PaymentMethod = paymentMethod
+	req.IncotermsReturn.Incoterms = incoterms
 
 	exist, err = c.exconfRequest(req, queueName, log)
 	if err != nil {
@@ -73,16 +74,16 @@ func (c *ExistenceConf) paymentMethodExistenceConfRequest(paymentMethod string, 
 	return "", nil
 }
 
-func getHeaderPaymentMethodExistenceConfKey(mapper ExConfMapper, header *dpfm_api_input_reader.Header, exconfErrMsg *string) string {
-	var paymentMethod string
+func getHeaderIncotermsExistenceConfKey(mapper ExConfMapper, header *dpfm_api_input_reader.Header, exconfErrMsg *string) string {
+	var incoterms string
 
 	switch mapper.Field {
-	case "PaymentMethod":
-		if header.PaymentMethod == nil {
-			paymentMethod = ""
+	case "Incoterms":
+		if header.Incoterms == nil {
+			incoterms = ""
 		} else {
-			paymentMethod = *header.PaymentMethod
+			incoterms = *header.Incoterms
 		}
 	}
-	return paymentMethod
+	return incoterms
 }
