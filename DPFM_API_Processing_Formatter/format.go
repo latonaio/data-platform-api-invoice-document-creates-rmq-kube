@@ -15,10 +15,10 @@ func ConvertToHeaderUpdates(header dpfm_api_input_reader.Header) *HeaderUpdates 
 		PaymentDueDate:                    data.PaymentDueDate,
 		NetPaymentDays:                    data.NetPaymentDays,
 		PaymentMethod:                     data.PaymentMethod,
-		ExternalReferenceDocument:         data.ExternalReferenceDocument,
 		DocumentHeaderText:                data.DocumentHeaderText,
 		HeaderIsCleared:                   data.HeaderIsCleared,
 		HeaderPaymentBlockStatus:          data.HeaderPaymentBlockStatus,
+		ExternalReferenceDocument:         data.ExternalReferenceDocument,
 	}
 }
 
@@ -30,10 +30,10 @@ func ConvertToItemUpdates(header dpfm_api_input_reader.Header, item dpfm_api_inp
 		InvoiceDocument:               dataHeader.InvoiceDocument,
 		InvoiceDocumentItem:           data.InvoiceDocumentItem,
 		ItemBillingIsConfirmed:        data.ItemBillingIsConfirmed,
-		ExternalReferenceDocument:     data.ExternalReferenceDocument,
-		ExternalReferenceDocumentItem: data.ExternalReferenceDocumentItem,
 		ItemIsCleared:                 data.ItemIsCleared,
 		ItemPaymentBlockStatus:        data.ItemPaymentBlockStatus,
+		ExternalReferenceDocument:     data.ExternalReferenceDocument,
+		ExternalReferenceDocumentItem: data.ExternalReferenceDocumentItem,
 	}
 }
 

@@ -63,11 +63,11 @@ type Header struct {
 	PaymentDueDate                    *string  `json:"PaymentDueDate"`
 	NetPaymentDays                    *int     `json:"NetPaymentDays"`
 	PaymentMethod                     string   `json:"PaymentMethod"`
-	ExternalReferenceDocument         *string  `json:"ExternalReferenceDocument"`
 	DocumentHeaderText                *string  `json:"DocumentHeaderText"`
 	HeaderIsCleared                   *bool    `json:"HeaderIsCleared"`
 	HeaderPaymentBlockStatus          *bool    `json:"HeaderPaymentBlockStatus"`
 	HeaderPaymentRequisitionIsCreated *bool    `json:"HeaderPaymentRequisitionIsCreated"`
+	ExternalReferenceDocument         *string  `json:"ExternalReferenceDocument"`
 	CreationDate                      string   `json:"CreationDate"`
 	CreationTime                      string   `json:"CreationTime"`
 	LastChangeDate                    string   `json:"LastChangeDate"`
@@ -139,8 +139,6 @@ type Item struct {
 	OriginDocumentItem                      *int     `json:"OriginDocumentItem"`
 	ReferenceDocument                       *int     `json:"ReferenceDocument"`
 	ReferenceDocumentItem                   *int     `json:"ReferenceDocumentItem"`
-	ExternalReferenceDocument               *string  `json:"ExternalReferenceDocument"`
-	ExternalReferenceDocumentItem           *string  `json:"ExternalReferenceDocumentItem"`
 	TaxCode                                 *string  `json:"TaxCode"`
 	TaxRate                                 *float32 `json:"TaxRate"`
 	CountryOfOrigin                         *string  `json:"CountryOfOrigin"`
@@ -149,6 +147,8 @@ type Item struct {
 	ItemPaymentRequisitionIsCreated         *bool    `json:"ItemPaymentRequisitionIsCreated"`
 	ItemIsCleared                           *bool    `json:"ItemIsCleared"`
 	ItemPaymentBlockStatus                  *bool    `json:"ItemPaymentBlockStatus"`
+	ExternalReferenceDocument               *string  `json:"ExternalReferenceDocument"`
+	ExternalReferenceDocumentItem           *string  `json:"ExternalReferenceDocumentItem"`
 	CreationDate                            string   `json:"CreationDate"`
 	CreationTime                            string   `json:"CreationTime"`
 	LastChangeDate                          string   `json:"LastChangeDate"`
