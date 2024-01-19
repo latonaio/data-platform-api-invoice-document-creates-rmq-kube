@@ -31,11 +31,15 @@ type Header struct {
 	PaymentDueDate                    *string  `json:"PaymentDueDate"`
 	NetPaymentDays                    *int     `json:"NetPaymentDays"`
 	PaymentMethod                     string   `json:"PaymentMethod"`
+	Contract		                  *int     `json:"Contract"`
+	ContractItem	                  *int     `json:"ContractItem"`
 	DocumentHeaderText                *string  `json:"DocumentHeaderText"`
 	HeaderIsCleared                   *bool    `json:"HeaderIsCleared"`
 	HeaderPaymentBlockStatus          *bool    `json:"HeaderPaymentBlockStatus"`
 	HeaderPaymentRequisitionIsCreated *bool    `json:"HeaderPaymentRequisitionIsCreated"`
 	ExternalReferenceDocument		  *string  `json:"ExternalReferenceDocument"`
+	CertificateAuthorityChain         *string  `json:"CertificateAuthorityChain"`
+	UsageControlChain        		  *string  `json:"UsageControlChain"`
 	CreationDate                      string   `json:"CreationDate"`
 	CreationTime                      string   `json:"CreationTime"`
 	LastChangeDate                    string   `json:"LastChangeDate"`

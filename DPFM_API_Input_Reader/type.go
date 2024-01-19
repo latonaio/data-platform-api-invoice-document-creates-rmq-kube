@@ -121,11 +121,15 @@ type Header struct {
 	PaymentDueDate                    *string  `json:"PaymentDueDate"`
 	NetPaymentDays                    *int     `json:"NetPaymentDays"`
 	PaymentMethod                     *string  `json:"PaymentMethod"`
+	Contract		                  *int     `json:"Contract"`
+	ContractItem	                  *int     `json:"ContractItem"`
 	DocumentHeaderText                *string  `json:"DocumentHeaderText"`
 	HeaderIsCleared                   *bool    `json:"HeaderIsCleared"`
 	HeaderPaymentBlockStatus          *bool    `json:"HeaderPaymentBlockStatus"`
 	HeaderPaymentRequisitionIsCreated *bool    `json:"HeaderPaymentRequisitionIsCreated"`
 	ExternalReferenceDocument         *string  `json:"ExternalReferenceDocument"`
+	CertificateAuthorityChain         *string  `json:"CertificateAuthorityChain"`
+	UsageControlChain        		  *string  `json:"UsageControlChain"`
 	CreationDate                      *string  `json:"CreationDate"`
 	CreationTime                      *string  `json:"CreationTime"`
 	LastChangeDate                    *string  `json:"LastChangeDate"`
@@ -148,6 +152,7 @@ type Item struct {
 	InvoiceDocumentItemTextByBuyer          *string  `json:"InvoiceDocumentItemTextByBuyer"`
 	InvoiceDocumentItemTextBySeller         *string  `json:"InvoiceDocumentItemTextBySeller"`
 	Product                                 *string  `json:"Product"`
+	SizeOrDimensionText                     *string  `json:"SizeOrDimensionText"`
 	ProductGroup                            *string  `json:"ProductGroup"`
 	ProductStandardID                       *string  `json:"ProductStandardID"`
 	ItemBillingIsConfirmed                  *bool    `json:"ItemBillingIsConfirmed"`
@@ -189,6 +194,8 @@ type Item struct {
 	WBSElement                              *int     `json:"WBSElement"`
 	OrderID                                 *int     `json:"OrderID"`
 	OrderItem                               *int     `json:"OrderItem"`
+	Contract		                  		*int     `json:"Contract"`
+	ContractItem	                  		*int     `json:"ContractItem"`
 	OrderType                               *string  `json:"OrderType"`
 	ContractType                            *string  `json:"ContractType"`
 	OrderVaridityStartDate                  *string  `json:"OrderVaridityStartDate"`
